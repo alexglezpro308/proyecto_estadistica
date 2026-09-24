@@ -1,0 +1,68 @@
+---
+title: "Análisis de Abandono de Clientes (Telco Churn)"
+author: "Alejandro Gonzalez"
+date: "2026-09-24"
+date-format: "DD/MM/YYYY"
+lang: es
+format: 
+  html:
+    theme: flatly
+    toc: true
+    toc-title: "Índice"
+    code-fold: true
+    smooth-scroll: true
+execute:
+  warning: false
+  message: false
+---
+
+## Introducción
+Este informe analiza los datos de abandono (Churn) de los clientes de la compañía de telecomunicaciones. El objetivo es visualizar cuántos clientes se han dado de baja y cómo se distribuyen los cargos mensuales.
+
+## Diccionario de Datos
+A continuación, se detalla el significado de cada una de las variables incluidas en el conjunto de datos para facilitar su interpretación:
+
+### Identificación y Ubicación
+* **`CustomerID`**: Código identificador único de cada cliente.
+* **`Count`**: Valor de recuento (siempre es 1).
+* **`Country`, `State`, `City`, `Zip.Code`**: País, Estado, Ciudad y Código Postal de residencia.
+* **`Lat.Long`, `Latitude`, `Longitude`**: Coordenadas exactas de ubicación del cliente.
+
+### Perfil Demográfico
+* **`Gender`**: Género del cliente (Hombre / Mujer).
+* **`Senior.Citizen`**: Indica si el cliente es mayor de 65 años (Tercera edad).
+* **`Partner`**: Indica si el cliente vive con su pareja.
+* **`Dependents`**: Indica si el cliente tiene personas a su cargo (hijos, ancianos).
+
+### Relación y Servicios Contratados
+* **`Tenure.Months`**: Antigüedad del cliente en meses.
+* **`Phone.Service`**: Indica si tiene contratado servicio telefónico básico.
+* **`Multiple.Lines`**: Indica si tiene contratadas múltiples líneas de teléfono.
+* **`Internet.Service`**: Tipo de conexión a internet (DSL, Fibra óptica, o ninguna).
+* **`Online.Security`, `Online.Backup`, `Device.Protection`, `Tech.Support`**: Servicios adicionales de seguridad online, copias de seguridad, protección de dispositivos y soporte técnico.
+* **`Streaming.TV`, `Streaming.Movies`**: Consumo de plataformas de streaming de televisión o películas.
+
+### Facturación y Pagos
+* **`Contract`**: Tipo de contrato o permanencia (Mes a mes, un año, o dos años).
+* **`Paperless.Billing`**: Indica si el cliente recibe facturación electrónica.
+* **`Payment.Method`**: Forma de pago utilizada por el cliente.
+* **`Monthly.Charges`**: Importe mensual que paga el cliente.
+* **`Total.Charges`**: Importe total acumulado pagado por el cliente históricamente.
+
+### Análisis de Abandono (Churn) y Valor
+* **`Churn.Label`**: Indica en texto si el cliente se ha dado de baja ("Yes") o sigue activo ("No").
+* **`Churn.Value`**: Formato numérico de la baja (1 = Se dio de baja, 0 = Sigue activo).
+* **`Churn.Score`**: Puntuación interna (0 a 100) sobre el riesgo de abandono del cliente.
+* **`CLTV` (Customer Lifetime Value)**: Valor económico total que la empresa estima ganar con el cliente.
+* **`Churn.Reason`**: Motivo específico proporcionado por el cliente al darse de baja.
+
+## Carga de Datos
+Cargamos las librerías necesarias y el archivo de datos para comenzar el análisis.
+
+```{r}
+# Cargamos las librerías para manipular datos y hacer gráficos
+library(dplyr)
+library(ggplot2)
+
+# Cargamos el archivo CSV 
+datos_telco <- read.csv("Telco_customer_churn.csv")
