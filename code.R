@@ -18,7 +18,9 @@ mean(datos_teleco$Senior.Citizen == "No")
 
 
 ggpairs(datos_teleco[, c("Tenure.Months", "Internet.Service")], 
-        aes(color =Internet.Service , alpha = 0.5))
+        aes(color = Internet.Service, alpha = 0.5)) +
+  scale_color_manual(values = c("DSL" = "#00F5FF", "Fiber optic" = "#FF3E96", "No" = "#00FF7F")) +
+  scale_fill_manual(values = c("DSL" = "#00F5FF", "Fiber optic" = "#FF3E96", "No" = "#00FF7F"))
 
 
 
