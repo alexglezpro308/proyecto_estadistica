@@ -1,0 +1,65 @@
+---
+title: "Resumen Ejecutivo: Análisis de Abandono de Clientes (Telco Churn)"
+subtitle: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos (URJC)"
+author: "Alejandro González & Eduardo Vega López "
+date: "2026-10-22"
+date-format: "DD/MM/YYYY"
+lang: es
+format: 
+  pdf:
+    geometry: margin=2cm
+    fontsize: 10pt
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(knitr)
+
+datos_telco <- read.csv("Telco_customer_churn.csv", stringsAsFactors = FALSE) %>%
+  mutate(
+    Total.Charges = ifelse(is.na(Total.Charges) & Tenure.Months == 0, 0, Total.Charges),
+    Contract = factor(Contract, levels = c("Month-to-month", "One year", "Two year"))
+  )
+```
+
+## 1. Contexto de los Datos y Objetivo
+Este informe sintetiza los hallazgos del Análisis Exploratorio de Datos (EDA) realizado sobre la cartera de clientes de una operadora de telecomunicaciones en **California (EE. UU.)** a partir del dataset *IBM Telco Customer Churn* ($n = 7.043$ clientes y $33$ variables). Durante la auditoría inicial de calidad se detectaron **11 valores faltantes (`NA`)** en la facturación acumulada (`Total.Charges`), correspondientes íntegramente a clientes recién dados de alta (`Tenure.Months == 0`), los cuales fueron imputados a $0\$$. No se registraron errores de medición ni valores atípicos globales según el criterio de Tukey ($1,5 \times IQR$).
+
+**Preguntas principales:** (1) ¿Cuál es la magnitud del abandono (*Churn*)?, (2) ¿Qué perfiles contractuales, de antigüedad, precio y tecnología concentran las bajas?, y (3) ¿Cuáles son las causas raíz declaradas por los clientes?
+
+## 2. Resultados Más Relevantes
+
+* **Tasa global de abandono elevada:** El **26,54% de la cartera ($1.869$ clientes)** se ha dado de baja en el último trimestre, frente a un **73,46% ($5.174$)** que permanece activo.
+* **Riesgo concentrado en los primeros meses:** La distribución de la antigüedad en los clientes que causan baja es fuertemente asimétrica hacia valores bajos (**mediana de 10 meses**, $Q_1 = 2$ meses, media de $17,98$ meses), frente a una **mediana de 38 meses** (media de $37,57$ meses) en los clientes que permanecen. La mitad de las fugas ocurren antes del primer año.
+* **Sensibilidad a cuotas altas:** Quienes abandonan pagan facturas mensuales sustancialmente mayores (**mediana de $79,65\$$**, media de $74,44\$$) que quienes continúan en la empresa (**mediana de $64,43\$$**, media de $61,27\$$).
+* **Interacción crítica entre Contrato y Fibra Óptica:** El contrato **mes a mes (*Month-to-month*)** registra un **42,71% de abandono** (concentrando el $88,55\%$ de todas las bajas de la empresa), frente al $11,27\%$ en contratos de 1 año y el $2,83\%$ en 2 años. A nivel tecnológico, la **Fibra Óptica** sufre un **41,89% de bajas** (frente al $18,96\%$ en DSL y $7,40\%$ sin internet). Al cruzar ambas variables, descubrimos el foco principal del problema: **los clientes con Fibra Óptica y contrato mensual ($n = 2.128$, cuota media de $87,02\$$) presentan una tasa de abandono del 54,61%**.
+* **Motivos declarados (`Churn.Reason`):** Las bajas responden a dos causas principales: **mal trato en la atención al cliente** (*actitud del soporte*, 1ª causa con $192$ bajas) y **mejores prestaciones de la competencia** (*mayor velocidad de descarga* con $189$ bajas, *más datos* con $162$ y *mejores ofertas* con $140$).
+
+```{r}
+#| fig-height: 2.7
+#| fig-width: 7.5
+
+ggplot(datos_telco, aes(x = Contract, fill = Churn.Label)) +
+  geom_bar(position = "fill", width = 0.6, color = "white") +
+  facet_wrap(~ Internet.Service) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("No" = "#2b5c8f", "Yes" = "#d9534f"),
+                    labels = c("Permanece", "Abandona")) +
+  labs(
+    title = "Tasa de Abandono por Modalidad de Contrato y Servicio de Internet",
+    x = "Tipo de Contrato", y = "Porcentaje de Clientes", fill = "Estado"
+  ) +
+  theme_minimal(base_size = 9) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+```
+
+## 3. Conclusiones, Recomendaciones y Limitaciones
+
+1. **Acciones recomendadas:** (a) Implementar campañas de migración de contratos mensuales a anuales con descuentos promocionales durante los **primeros 6-10 meses** de vida del cliente; (b) revisar competitivamente el caudal/precio de la **Fibra Óptica**; y (c) auditar de inmediato la formación y protocolos del equipo de soporte técnico.
+2. **Limitaciones metodológicas:** Este estudio es de carácter exploratorio y descriptivo sobre una muestra transversal de California; la confirmación de efectos causales y la extrapolación poblacional requerirán pruebas de hipótesis e intervalos de confianza en la fase inferencial.

@@ -1,14 +1,20 @@
 ---
-title: "Análisis de Abandono de Clientes (Telco Churn)"
-author: "Alejandro Gonzalez & Eduardo Vega López"
-date: "2026-09-24"
+title: "Análisis Exploratorio de Datos: Abandono de Clientes (Telco Churn)"
+subtitle: "Inferencia Estadística - Grado en Ciencia e Ingeniería de Datos"
+author: 
+  - "Alejandro González"
+  - "Eduardo Vega López"
+
+date: "2026-10-22"
 date-format: "DD/MM/YYYY"
 lang: es
 format: 
   html:
     theme: flatly
     toc: true
-    toc-title: "Índice"
+    toc-depth: 3
+    toc-title: "Índice de Contenidos"
+    number-sections: false
     code-fold: false
     smooth-scroll: true
 execute:
@@ -16,294 +22,396 @@ execute:
   message: false
 ---
 
-## Introducción
+## 1. Descripción y procedencia de los datos
 
-Este informe analiza los datos de abandono (*Churn*) de los clientes de una compañía de telecomunicaciones. El objetivo es visualizar cuántos clientes se han dado de baja, cómo se distribuyen los cargos mensuales y qué factores contractuales, demográficos o de servicio influyen en la decisión de abandonar la empresa.
+### 1.1. Origen, contexto y unidad de observación
 
-## Diccionario de Datos
+El conjunto de datos analizado en este estudio corresponde al dataset **`Telco Customer Churn`**, desarrollado originalmente por **IBM Cognos Analytics** (módulo de negocio de telecomunicaciones) y distribuido públicamente a través de repositorios científicos como Kaggle y la comunidad de ciencia de datos de IBM.
 
-A continuación, se detalla el significado de cada una de las variables incluidas en el conjunto de datos para facilitar su interpretación:
+- **¿Cómo se han obtenido?** Los datos proceden del sistema de gestión de relaciones con clientes (CRM) y facturación de una operadora ficticia pero realista que presta servicios de telefonía fija e Internet residencial en el estado de **California (Estados Unidos)** durante el tercer trimestre (Q3) del año fiscal.
+- **¿Qué representa cada observación?** El dataset consta de $n = 7.043$ observaciones (filas) y **33 variables (columnas)**. Cada fila representa a un **cliente único** identificado mediante un código alfanumérico (`CustomerID`).
+- **Referencias de la fuente:**
+  - IBM Cognos Analytics (2019). *Telco customer churn (11.1.3+)* \[Conjunto de datos\]. IBM Community. Recuperado de: `https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113`
+  - Kaggle Dataset Repository: *Telco Customer Churn - Focused customer retention programs*.
 
-### Identificación y Ubicación
+### 1.2. Diccionario de variables y escalas de medición
 
-- **`CustomerID`**: Código identificador único de cada cliente.
-- **`Country`, `State`, `City`, `Zip.Code`**: País, Estado, Ciudad y Código Postal de residencia.
+Siguiendo la taxonomía estadística de variables y escalas de medición, clasificamos los atributos del conjunto de datos en cinco bloques temáticos:
 
-### Perfil Demográfico
+#### A. Identificación, Constantes y Ubicación Geográfica
 
-- **`Gender`**: Género del cliente (Hombre / Mujer).
-- **`Senior.Citizen`**: Indica si el cliente es mayor de 65 años (Tercera edad).
-- **`Partner`**: Indica si el cliente vive con su pareja.
-- **`Dependents`**: Indica si el cliente tiene personas a su cargo.
+- **`CustomerID`** *(Cualitativa nominal / Identificador)*: Clave primaria única de cada cliente.
+- **`Count`** *(Cuantitativa discreta - Constante)*: Valor constante igual a `1` empleado para agregaciones rápidas en cuadros de mando. Carece de variabilidad estadística.
+- **`Country`, `State`, `City`, `Zip.Code`** *(Cualitativas nominales)*: Ubicación de residencia. `Country` (*United States*) y `State` (*California*) son constantes en toda la muestra.
+- **`Lat.Long`, `Latitude`, `Longitude`** *(Cuantitativas continuas - Escala de intervalo)*: Coordenadas geográficas de la residencia del cliente.
 
-### Relación y Servicios Contratados
+#### B. Perfil Demográfico
 
-- **`Tenure.Months`**: Antigüedad del cliente en meses.
-- **`Phone.Service`**: Indica si tiene contratado servicio telefónico básico.
-- **`Internet.Service`**: Tipo de conexión a internet (DSL, Fibra óptica, o ninguna).
-- **`Online.Security`, `Online.Backup`, `Device.Protection`, `Tech.Support`**: Servicios adicionales.
-- **`Streaming.TV`, `Streaming.Movies`**: Consumo de plataformas de streaming.
+- **`Gender`** *(Cualitativa nominal)*: Género del titular (`Male`, `Female`).
+- **`Senior.Citizen`** *(Cualitativa nominal dicotómica)*: Indica si el cliente tiene 65 años o más (`Yes`, `No`).
+- **`Partner`** *(Cualitativa nominal dicotómica)*: Indica si el cliente tiene pareja (`Yes`, `No`).
+- **`Dependents`** *(Cualitativa nominal dicotómica)*: Indica si el cliente convive con personas a su cargo, como hijos o mayores (`Yes`, `No`).
 
-### Facturación y Pagos
+#### C. Relación Comercial y Servicios Contratados
 
-- **`Contract`**: Tipo de contrato o permanencia (Mes a mes, un año, o dos años).
-- **`Monthly.Charges`**: Importe mensual que paga el cliente.
-- **`Total.Charges`**: Importe total acumulado pagado por el cliente históricamente.
+- **`Tenure.Months`** *(Cuantitativa discreta - Escala de razón)*: Antigüedad del cliente en la compañía medida en meses completos (posee cero absoluto: `0` meses indica alta en el mes en curso).
+- **`Phone.Service`, `Multiple.Lines`** *(Cualitativas nominales)*: Contratación de línea telefónica fija y líneas múltiples.
+- **`Internet.Service`** *(Cualitativa nominal)*: Tecnología de acceso a Internet contratada (`DSL`, `Fiber optic`, `No`).
+- **`Online.Security`, `Online.Backup`, `Device.Protection`, `Tech.Support`, `Streaming.TV`, `Streaming.Movies`** *(Cualitativas nominales)*: Servicios de valor añadido (`Yes`, `No`, `No internet service`).
 
-### Análisis de Abandono (Churn)
+#### D. Facturación y Contrato
 
-- **`Churn.Label`**: Indica en texto si el cliente se ha dado de baja ("Yes") o sigue activo ("No").
-- **`Churn.Reason`**: Motivo específico al darse de baja.
+- **`Contract`** *(Cualitativa ordinal)*: Nivel de compromiso o permanencia contractual, ordenado de menor a mayor vinculación: `Month-to-month` (mes a mes) \< `One year` (un año) \< `Two year` (dos años).
+- **`Paperless.Billing`** *(Cualitativa nominal dicotómica)*: Facturación electrónica activa (`Yes`, `No`).
+- **`Payment.Method`** *(Cualitativa nominal)*: Método de pago habitual (cheque electrónico, cheque postal, transferencia bancaria automática o tarjeta de crédito automática).
+- **`Monthly.Charges`** *(Cuantitativa continua - Escala de razón)*: Cuota mensual actual facturada al cliente (en dólares, $\$$).
+- **`Total.Charges`** *(Cuantitativa continua - Escala de razón)*: Importe total acumulado facturado al cliente desde su alta en la compañía (en $\$$).
 
-------------------------------------------------------------------------
+#### E. Variables Objetivo y Métricas de Abandono (*Churn*)
 
-## Planteamiento inicial del EDA
-
-El objetivo de este análisis exploratorio de datos (EDA) es estudiar el comportamiento de baja de los clientes de la compañía e identificar qué perfiles y características están más asociados con dicho abandono, permitiendo así fundamentar estrategias de retención.
-
-## Preguntas de partida
-
-1.  ¿Qué proporción de clientes ha abandonado la compañía?
-2.  ¿Cómo varía el abandono según el tipo de contrato?
-3.  ¿Existen diferencias en la antigüedad entre los clientes que abandonan y los que permanecen?
-4.  ¿Se observan diferencias en los cargos mensuales según el abandono?
-5.  ¿Varía la proporción de abandono según el servicio de Internet contratado?
-6.  ¿Cuáles son los motivos de abandono más frecuentes?
-7.  Exploración extra: Relación entre la Antigüedad y el Servicio de Internet.
+- **`Churn.Label`** *(Cualitativa nominal dicotómica)*: Variable objetivo principal. Indica si el cliente abandonó la empresa en el último trimestre (`Yes`) o permanece activo (`No`).
+- **`Churn.Value`** *(Cuantitativa discreta binaria)*: Codificación numérica de `Churn.Label` (`1` = Abandono, `0` = Permanencia).
+- **`Churn.Score`** *(Cuantitativa discreta - Escala de intervalo)*: Puntuación predictiva interna de IBM (de 0 a 100) sobre propensión a la baja.
+- **`CLTV`** *(Cuantitativa continua - Escala de razón)*: *Customer Lifetime Value* o valor económico estimado del cliente a largo plazo (en $\$$).
+- **`Churn.Reason`** *(Cualitativa nominal)*: Motivo específico declarado por el cliente al tramitar la baja (solo disponible para observaciones con `Churn.Label == "Yes"`).
 
 ------------------------------------------------------------------------
 
-## 0. Carga de librerías y datos
+## 2. Planteamiento inicial del EDA
 
-**¿Por qué realizamos este apartado?**  
-Antes de comenzar cualquier análisis en R, necesitamos cargar los paquetes que contienen las funciones de manipulación de datos (`dplyr`), creación de gráficos avanzados (`ggplot2`) y matrices de correlación visual (`GGally`). Asimismo, importamos el archivo CSV original para almacenarlo en un objeto (`datos_telco`) sobre el cual ejecutaremos todas las consultas.
+El objetivo de este Análisis Exploratorio de Datos (EDA) es actuar como "detectives de datos" (en palabras de John Tukey) para comprender la estructura subyacente de la cartera de clientes e identificar qué factores demográficos, técnicos y económicos están asociados con la pérdida de clientes (*Churn*).
+
+Para abordar la exploración de forma rigurosa y ordenada, hemos diseñado el siguiente **plan de trabajo en cuatro etapas**:
+
+1.  **Fase 1: Auditoría de calidad, limpieza y validación estructural.** Antes de calcular estadísticos o graficar, inspeccionaremos los tipos de datos importados por R, buscaremos **valores faltantes (`NA`)** o cadenas de texto vacías, verificaremos la existencia de variables constantes o redundantes, y comprobaremos la presencia de **valores atípicos (*outliers*)** en las variables numéricas clave (`Tenure.Months`, `Monthly.Charges` y `Total.Charges`).
+2.  **Fase 2: Análisis descriptivo univariante.** Caracterizaremos la variable respuesta (`Churn.Label`) y las principales variables explicativas mediante tablas de frecuencias (absolutas y relativas) para datos categóricos, y resúmenes numéricos completos para datos cuantitativos: **medidas de centralidad** (media, mediana), **posición** (cuartiles, mínimo, máximo) y **dispersión** (desviación típica $s$, rango intercuartílico $IQR$ y coeficiente de variación $CV$).
+3.  **Fase 3: Exploración bivariante orientada por hipótesis.** Cruzaremos el estado de abandono con las dimensiones contractuales (`Contract`), temporales (`Tenure.Months`), económicas (`Monthly.Charges`) y tecnológicas (`Internet.Service`), eligiendo la representación gráfica adecuada según la naturaleza de cada par de variables (diagramas de barras apiladas al 100% para comparar proporciones condicionadas, *boxplots* e histogramas/curvas de densidad para distribuciones continuas).
+4.  **Fase 4: Profundización multivariante y análisis de causas raíz.** A partir de los hallazgos bivariantes, investigaremos cómo interactúan simultáneamente el precio, la tecnología y el contrato sobre el abandono, y cerraremos el estudio analizando las razones textuales declaradas por los propios usuarios que causaron baja (`Churn.Reason`).
+
+------------------------------------------------------------------------
+
+## 3. Preguntas de partida
+
+A partir del contexto de negocio, formulamos las siguientes preguntas iniciales que guiarán nuestra investigación:
+
+1.  **Magnitud global del problema:** ¿Qué proporción exacta de clientes ha abandonado la compañía en el último trimestre?
+2.  **Impacto de la vinculación contractual:** ¿Cómo varía la tasa de abandono según la modalidad de contrato (`Month-to-month`, `One year`, `Two year`)?
+3.  **Efecto de la antigüedad (ciclo de vida):** ¿Existen diferencias sustanciales en la antigüedad (`Tenure.Months`) entre los clientes que abandonan y los que permanecen? ¿En qué momento temporal es más crítico el riesgo de fuga?
+4.  **Sensibilidad al precio:** ¿Se observan diferencias en la distribución, centralidad y dispersión de los cargos mensuales (`Monthly.Charges`) según el estado de abandono?
+5.  **Calidad y tipo de producto:** ¿Varía la proporción de abandono según el servicio de Internet contratado (`DSL`, `Fiber optic`, `No`)?
+6.  **Interacción multivariante (evolución del análisis):** ¿Por qué un servicio tecnológicamente superior como la Fibra Óptica presenta tasas de baja tan elevadas? ¿Cómo interactúan conjuntamente la tecnología, la antigüedad, el tipo de contrato y la cuota mensual?
+7.  **Causas declaradas:** ¿Cuáles son los motivos específicos de abandono (`Churn.Reason`) más frecuentes reportados por los clientes que se van?
+
+------------------------------------------------------------------------
+
+## 4. Proceso de exploración
+
+### 4.0. Configuración del entorno y carga de datos
+
+Cargamos las librerías necesarias para la manipulación de datos (`dplyr`, `tidyr`), visualización estadística (`ggplot2`, `GGally`, `scales`) y generación de tablas limpias (`knitr`).
 
 ```{r}
 #| label: carga-datos
 
-# Cargamos las librerías necesarias
 library(ggplot2)
 library(GGally)
 library(dplyr)
+library(tidyr)
+library(scales)
+library(knitr)
 
-# Cargamos los datos
-datos_telco <- read.csv("Telco_customer_churn.csv")
+# Lectura del conjunto de datos tratando cadenas vacías como texto para auditarlas
+datos_telco <- read.csv("Telco_customer_churn.csv", stringsAsFactors = FALSE)
 ```
 
 ------------------------------------------------------------------------
 
-## Exploración inicial
+### 4.1. Auditoría de calidad de datos, valores faltantes (`NA`) y atípicos (*Outliers*)
 
-**¿Por qué realizamos este apartado?**  
-Es fundamental hacer una primera inspección de la tabla para comprobar que los datos se han leído correctamente, conocer los nombres exactos de las columnas y extraer algunas métricas descriptivas rápidas sobre la composición de nuestra cartera de clientes (presencia de fibra óptica, límite de antigüedad registrada y distribución de personas mayores).
-
-```{r}
-#| label: exploracion-tabla
-
-head(datos_telco)
-colnames(datos_telco)
-```
+**Justificación metodológica:** Un error habitual al analizar datos reales es calcular medias o generar gráficos directamente sin verificar si existen datos perdidos (`NA`), incoherencias o valores extremos que distorsionen los estimadores no robustos (como la media o la desviación típica).
 
 ```{r}
-#| label: exploracion-metricas
+#| label: auditoria-calidad
 
-# Clientes con Fibra Óptica
-table(datos_telco$Internet.Service == "Fiber optic")
-mean(datos_telco$Internet.Service == "Fiber optic")
+# Dimensiones del dataset
+cat("Dimensiones del dataset:", nrow(datos_telco), "filas y", ncol(datos_telco), "columnas.\n")
 
-# Antigüedad máxima
-max(datos_telco$Tenure.Months, na.rm = TRUE)
-
-# Proporción de Tercera Edad en Los Angeles y general
-mean(datos_telco$City[datos_telco$Senior.Citizen == "Yes"] == "Los Angeles", na.rm = TRUE)
-mean(datos_telco$Senior.Citizen == "No", na.rm = TRUE)
+# Comprobación de valores NA por columna
+na_por_columna <- colSums(is.na(datos_telco))
+na_por_columna[na_por_columna > 0]
 ```
 
-**¿Qué información nos proporciona?**  
-- **`head()` y `colnames()`**: Nos muestran las primeras 6 filas de la base de datos y los nombres de las variables disponibles, verificando que los tipos de datos (texto, numéricos) son coherentes.
-- **Clientes con Fibra Óptica**: Nos indica que **3.096 clientes** tienen contratada fibra óptica, lo que representa aproximadamente el **43,96%** del total de la cartera.
-- **Antigüedad máxima**: El cliente más fiel lleva **72 meses** (6 años completos) en la compañía.
-- **Proporción de Tercera Edad**: Observamos que alrededor del **4,55%** de los clientes mayores de 65 años residen en la ciudad de Los Ángeles, mientras que el **83,79%** del total de clientes de la empresa **no** pertenecen a la tercera edad (`Senior.Citizen == "No"`).
-
-### Relación entre Antigüedad y Servicio de Internet
-
-**¿Por qué realizamos este apartado?**  
-Utilizamos la función `ggpairs` para cruzar simultáneamente una variable numérica (`Tenure.Months`) y una categórica (`Internet.Service`), diferenciando por colores cada modalidad de conexión. Esto nos permite observar de un vistazo si la antigüedad de los clientes varía según el tipo de tecnología contratada.
+**Problema encontrado 1 (Valores `NA` en `Total.Charges`):**\
+La comprobación revela exactamente **11 valores faltantes (`NA`)** en la variable cuantitativa `Total.Charges`. Antes de eliminarlos automáticamente, investigamos qué tienen en común estos 11 registros:
 
 ```{r}
-#| label: grafico-relaciones
+#| label: investigacion-nas
 
-# Gráfico de relaciones (Antigüedad vs Servicio de Internet)
-ggpairs(datos_telco[, c("Tenure.Months", "Internet.Service")], 
-        aes(color = Internet.Service, alpha = 0.5)) +
-  scale_color_manual(values = c("DSL" = "#00F5FF", "Fiber optic" = "#FF3E96", "No" = "#00FF7F")) +
-  scale_fill_manual(values = c("DSL" = "#00F5FF", "Fiber optic" = "#FF3E96", "No" = "#00FF7F"))
+datos_telco %>%
+  filter(is.na(Total.Charges)) %>%
+  select(CustomerID, Tenure.Months, Contract, Monthly.Charges, Total.Charges, Churn.Label) %>%
+  kable(caption = "Clientes con valores faltantes (NA) en Total.Charges")
 ```
 
-**¿Qué información nos proporciona?**  
-El panel combinado muestra tanto el volumen de clientes en cada tecnología como los diagramas de caja y curvas de densidad de su antigüedad. Permite apreciar cómo se reparte el tiempo de permanencia en cada grupo y detectar si existen diferencias de retención entre usuarios de DSL, Fibra óptica y aquellos sin servicio de internet.
+**Decisión tomada sobre los `NA`:**\
+Observamos un patrón determinista perfecto: **los 11 clientes con `Total.Charges == NA` tienen una antigüedad exactamente igual a `0` meses (`Tenure.Months == 0`)** y ninguno ha abandonado la compañía (`Churn.Label == "No"`). Es decir, son clientes que acaban de firmar su contrato (de 1 o 2 años) y aún no han cerrado su primer ciclo de facturación mensual.\
+Por tanto, eliminar estas filas haría perder información válida sobre clientes recién captados. La decisión estadísticamente correcta es **imputar `Total.Charges = 0`** para estos 11 casos, reflejando fielmente que su facturación acumulada hasta la fecha es de $0\$$.
+
+```{r}
+#| label: imputacion-nas
+
+datos_telco <- datos_telco %>%
+  mutate(Total.Charges = ifelse(is.na(Total.Charges) & Tenure.Months == 0, 0, Total.Charges))
+
+# Verificamos que ya no quedan NAs en todo el dataset
+cat("Total de NAs tras la imputación:", sum(is.na(datos_telco)), "\n")
+```
+
+**Problema encontrado 2 (Cadenas vacías y variables constantes):**\
+Comprobamos también que las variables `Count` (siempre `1`), `Country` (*United States*) y `State` (*California*) son constantes en toda la muestra, por lo que no aportan capacidad discriminante. Asimismo, en `Churn.Reason`, los clientes activos (`Churn.Label == "No"`) presentan una cadena vacía `""`, lo cual es coherente por diseño (solo quien se da de baja declara un motivo de baja).
+
+**Comprobación de datos atípicos (*Outliers*) y resumen numérico general:**\
+Calculamos un resumen descriptivo completo de las tres variables cuantitativas principales (`Tenure.Months`, `Monthly.Charges`, `Total.Charges`), incluyendo medidas de centralidad, posición, dispersión y los límites teóricos de Tukey ($Q_1 - 1.5 \times IQR$ y $Q_3 + 1.5 \times IQR$) para detectar posibles valores atípicos.
+
+```{r}
+#| label: resumen-cuantitativas-outliers
+
+resumen_numerico <- datos_telco %>%
+  select(Tenure.Months, Monthly.Charges, Total.Charges) %>%
+  pivot_longer(everything(), names_to = "Variable", values_to = "Valor") %>%
+  group_by(Variable) %>%
+  summarise(
+    Min = min(Valor),
+    Q1 = quantile(Valor, 0.25),
+    Mediana = median(Valor),
+    Media = mean(Valor),
+    Q3 = quantile(Valor, 0.75),
+    Max = max(Valor),
+    SD = sd(Valor),
+    IQR = IQR(Valor),
+    CV_porc = (sd(Valor) / mean(Valor)) * 100,
+    Lim_Inf_Outlier = quantile(Valor, 0.25) - 1.5 * IQR(Valor),
+    Lim_Sup_Outlier = quantile(Valor, 0.75) + 1.5 * IQR(Valor),
+    N_Outliers = sum(Valor < (quantile(Valor, 0.25) - 1.5 * IQR(Valor)) | 
+                     Valor > (quantile(Valor, 0.75) + 1.5 * IQR(Valor)))
+  )
+
+kable(resumen_numerico, digits = 2, 
+      caption = "Resumen estadístico completo y detección de atípicos (criterio 1.5*IQR)")
+```
+
+**Interpretación de la exploración numérica inicial:** \* **Inexistencia de errores de medición u *outliers* extremos:** Ninguna de las tres variables presenta observaciones fuera del intervalo $[Q_1 - 1.5 \times IQR, \; Q_3 + 1.5 \times IQR]$ (`N_Outliers = 0`). La antigüedad oscila entre **0 y 72 meses** (máximo de 6 años registrados en el sistema), y los cargos mensuales se mueven en un rango comercial lógico entre $18,25\$$ y $118,75\$$. \* **Dispersión y asimetría:** \* En `Monthly.Charges`, la mediana ($70,35\$$) es superior a la media ($64,76\$$), indicando una distribución asimétrica hacia la izquierda (acumulación de clientes en tarifas básicas de telefonía alrededor de $20\$$). \* `Total.Charges` presenta un **Coeficiente de Variación (**$CV$) muy elevado del 99,83% (la desviación típica de $2.266,77\$$ es casi igual a su media de $2.279,73\$$) y una fuerte asimetría positiva (media de $2.279,73\$$ frente a una mediana de $1.394,55\$$). Esto ocurre porque `Total.Charges` es el producto acumulado de la antigüedad por la cuota mensual.
+
+```{r}
+#| label: metricas-contexto-demografico
+
+# Métricas descriptivas de composición de cartera
+prop_fibra <- mean(datos_telco$Internet.Service == "Fiber optic") * 100
+prop_no_senior <- mean(datos_telco$Senior.Citizen == "No") * 100
+prop_senior_la <- mean(datos_telco$City[datos_telco$Senior.Citizen == "Yes"] == "Los Angeles") * 100
+
+cat(sprintf("- Clientes con Fibra Óptica: %d (%.2f%% de la cartera)\n", 
+            sum(datos_telco$Internet.Service == "Fiber optic"), prop_fibra))
+cat(sprintf("- Clientes menores de 65 años (No Senior): %.2f%% (Senior: %.2f%%)\n", 
+            prop_no_senior, 100 - prop_no_senior))
+cat(sprintf("- Proporción de clientes Senior que residen en Los Ángeles: %.2f%%\n", prop_senior_la))
+```
 
 ------------------------------------------------------------------------
 
-## 1. Proporción de clientes que han abandonado la compañía
+### 4.2. Pregunta 1: Proporción de clientes que han abandonado la compañía
 
-**¿Por qué realizamos este apartado?**  
-El primer paso clave del estudio de *Churn* es cuantificar la magnitud del problema: saber exactamente cuántos clientes se han ido frente a cuántos permanecen activos, tanto en términos absolutos como porcentuales.
+**¿Por qué realizamos este análisis?**\
+Para cuantificar la tasa base de cancelación (*baseline churn rate*) en la muestra estudiada mediante una tabla de frecuencias absolutas y relativas y un diagrama de barras.
 
 ```{r}
 #| label: proporcion-abandono
 
-table(datos_telco$Churn.Label)
-round(prop.table(table(datos_telco$Churn.Label)) * 100, 2)
+tabla_churn <- datos_telco %>%
+  count(Churn.Label, name = "Frecuencia_Absoluta") %>%
+  mutate(
+    Frecuencia_Relativa = Frecuencia_Absoluta / sum(Frecuencia_Absoluta),
+    Porcentaje = round(Frecuencia_Relativa * 100, 2)
+  )
 
-ggplot(datos_telco, aes(x = Churn.Label, fill = Churn.Label)) +
-  geom_bar() +
-  labs(title = "Abandono de clientes", x = "Situación", y = "Número de clientes") +
+kable(tabla_churn, caption = "Tabla de frecuencias del abandono de clientes (Churn.Label)")
+
+ggplot(tabla_churn, aes(x = Churn.Label, y = Frecuencia_Absoluta, fill = Churn.Label)) +
+  geom_col(width = 0.55, color = "black", alpha = 0.85) +
+  geom_text(aes(label = paste0(Frecuencia_Absoluta, "\n(", Porcentaje, "%)")), 
+            vjust = -0.3, fontface = "bold", size = 3.8) +
+  scale_fill_manual(values = c("No" = "#2b5c8f", "Yes" = "#d9534f")) +
+  ylim(0, 6000) +
+  labs(
+    title = "Distribución del Abandono de Clientes (Churn)",
+    subtitle = "Muestra total: n = 7.043 clientes en California",
+    x = "¿El cliente ha abandonado la compañía?",
+    y = "Número de clientes (Frecuencia absoluta)"
+  ) +
   theme_minimal() +
   theme(legend.position = "none")
 ```
 
-**¿Qué información nos proporciona?**  
-- La tabla y el gráfico de barras revelan que **5.174 clientes (73,46%)** continúan en la empresa (`No`), mientras que **1.869 clientes (26,54%)** se han dado de baja (`Yes`).
-- Perder a más de una cuarta parte de la cartera es una cifra considerable en el sector de las telecomunicaciones, lo que justifica profundizar en las variables siguientes para descubrir las causas.
+**Evidencia obtenida:**\
+\* De los 7.043 clientes registrados, **5.174 clientes (73,46%)** permanecen activos (`No`), mientras que **1.869 clientes (26,54%)** han causado baja (`Yes`). \* Desde una perspectiva de negocio, una pérdida trimestral superior a una cuarta parte de la cartera ($26,54\%$) representa una sangría crítica de ingresos recurrentes, confirmando la necesidad de identificar qué segmentos concentran esta fuga.
 
 ------------------------------------------------------------------------
 
-## 2. Abandono según el tipo de contrato
+### 4.3. Pregunta 2: Abandono según el tipo de contrato
 
-**¿Por qué realizamos este apartado?**  
-El tipo de compromiso contractual suele ser uno de los mayores predictores de baja. Cruzamos la variable `Contract` con `Churn.Label` calculando porcentajes por fila (`margin = 1`) y generando un gráfico de barras apiladas al 100% (`position = "fill"`) para comparar justamente el riesgo de fuga en cada modalidad.
+**¿Por qué realizamos este análisis?**\
+La variable ordinal `Contract` refleja las barreras de salida formales del cliente. Construimos una tabla de contingencia con frecuencias relativas condicionadas por fila (`margin = 1`) y un diagrama de barras apiladas al 100% (`position = "fill"`). Elegimos barras normalizadas al 100% porque el tamaño total de cada grupo contractual es distinto y nos interesa comparar el **riesgo relativo de baja** dentro de cada modalidad.
 
 ```{r}
 #| label: abandono-contrato
 
-table(datos_telco$Contract, datos_telco$Churn.Label)
-round(prop.table(table(datos_telco$Contract, datos_telco$Churn.Label), margin = 1) * 100, 2)
+# Ordenamos los niveles de la variable ordinal Contract de menor a mayor permanencia
+datos_telco$Contract <- factor(datos_telco$Contract, 
+                               levels = c("Month-to-month", "One year", "Two year"))
+
+tabla_contrato <- table(Contrato = datos_telco$Contract, Abandono = datos_telco$Churn.Label)
+prop_contrato <- round(prop.table(tabla_contrato, margin = 1) * 100, 2)
+
+kable(cbind(tabla_contrato, prop_contrato), 
+      caption = "Contingencia: Frecuencias absolutas y porcentajes por fila según Contrato")
 
 ggplot(datos_telco, aes(x = Contract, fill = Churn.Label)) +
-  geom_bar(position = "fill") +
+  geom_bar(position = "fill", width = 0.6, color = "white") +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "Abandono según contrato", x = "Contrato", y = "Porcentaje", fill = "Abandono") +
+  scale_fill_manual(values = c("No" = "#2b5c8f", "Yes" = "#d9534f"), 
+                    labels = c("Permanece (No)", "Abandona (Yes)")) +
+  labs(
+    title = "Proporción de Abandono según Modalidad de Contrato",
+    subtitle = "Frecuencias relativas condicionadas al tipo de contrato",
+    x = "Tipo de Contrato (Escala Ordinal)",
+    y = "Porcentaje de clientes",
+    fill = "Estado del cliente"
+  ) +
   theme_minimal()
 ```
 
-**¿Qué información nos proporciona?**  
-- Existe una relación directa y muy marcada entre la duración del contrato y el abandono:
-  - En los contratos **mes a mes (*Month-to-month*)**, la tasa de abandono se dispara hasta el **42,71%** (1.655 bajas).
-  - En los contratos de **un año (*One year*)**, el abandono cae drásticamente al **11,27%**.
-  - En los contratos de **dos años (*Two year*)**, la fuga es mínima, situándose en apenas un **2,83%**.
-- Esto demuestra que los clientes sin permanencia tienen una barrera de salida muy baja, siendo el grupo prioritario para campañas de fidelización (por ejemplo, incentivar su paso a contratos anuales).
+**Evidencia obtenida:**\
+\* Se observa una relación monótona decreciente sumamente pronunciada entre el compromiso contractual y el abandono: \* **Contrato mes a mes (*Month-to-month*):** Concentra una tasa de abandono del **42,71%** ($1.655$ bajas sobre $3.875$ clientes en esta modalidad). De hecho, el $88,55\%$ de todas las bajas de la empresa ($1.655 / 1.869$) provienen de contratos mensuales. \* **Contrato de un año (*One year*):** La tasa de abandono se desploma casi cuatro veces, situándose en el **11,27%** ($166$ bajas). \* **Contrato de dos años (*Two year*):** Presenta una fidelidad casi total, con apenas un **2,83%** de bajas ($48$ casos).
 
 ------------------------------------------------------------------------
 
-## 3. Diferencias en la antigüedad (Tenure)
+### 4.4. Pregunta 3: Diferencias en la antigüedad (`Tenure.Months`) según abandono
 
-**¿Por qué realizamos este apartado?**  
-Queremos comprobar si el abandono ocurre principalmente en clientes recién llegados o en clientes veteranos. Para ello, calculamos la media y la mediana de los meses de antigüedad (`Tenure.Months`) agrupando por situación de abandono y representamos su distribución mediante un diagrama de caja (*boxplot*).
+**¿Por qué realizamos este análisis?**\
+Queremos contrastar si la baja es un fenómeno de desgaste a largo plazo o un fallo de retención temprana (*onboarding*). Comparamos las medidas de tendencia central, posición y dispersión de `Tenure.Months` en ambos grupos y visualizamos su distribución con un diagrama de caja y bigotes (*boxplot*) combinado con la media muestral.
 
 ```{r}
 #| label: diferencias-antiguedad
 
-datos_telco %>%
+tabla_antiguedad <- datos_telco %>%
   group_by(Churn.Label) %>%
   summarise(
-    Media_Antiguedad = mean(Tenure.Months, na.rm = TRUE),
-    Mediana_Antiguedad = median(Tenure.Months, na.rm = TRUE)
+    n = n(),
+    Media = mean(Tenure.Months),
+    SD = sd(Tenure.Months),
+    Q1 = quantile(Tenure.Months, 0.25),
+    Mediana = median(Tenure.Months),
+    Q3 = quantile(Tenure.Months, 0.75),
+    IQR = IQR(Tenure.Months),
+    CV_porc = (sd(Tenure.Months) / mean(Tenure.Months)) * 100
   )
 
+kable(tabla_antiguedad, digits = 2, 
+      caption = "Estadísticos descriptivos de Antigüedad (meses) según Abandono")
+
 ggplot(datos_telco, aes(x = Churn.Label, y = Tenure.Months, fill = Churn.Label)) +
-  geom_boxplot() +
-  labs(title = "Antigüedad vs Abandono", x = "Abandono", y = "Antigüedad (Meses)") +
+  geom_boxplot(width = 0.45, alpha = 0.8, outlier.color = "black", outlier.size = 2) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 3.5, fill = "white") +
+  scale_fill_manual(values = c("No" = "#2b5c8f", "Yes" = "#d9534f")) +
+  labs(
+    title = "Distribución de la Antigüedad (Tenure) según Abandono",
+    subtitle = "El rombo blanco indica la media muestral; la línea central indica la mediana",
+    x = "¿Ha abandonado la compañía?",
+    y = "Antigüedad (Meses)"
+  ) +
   theme_minimal() +
   theme(legend.position = "none")
 ```
 
-**¿Qué información nos proporciona?**  
-- Los clientes que **permanecen (`No`)** tienen una antigüedad media de **37,57 meses** y una mediana de **38 meses**.
-- Por el contrario, los clientes que **abandonan (`Yes`)** tienen una antigüedad media mucho menor, de **17,98 meses**, y una mediana de tan solo **10 meses**.
-- El *boxplot* confirma visualmente que la mitad de las bajas se producen antes de cumplir el primer año (10 meses). Es decir, el riesgo de fuga es crítico durante los primeros meses de vida del cliente; una vez superada esa barrera inicial, la fidelidad aumenta notablemente.
+**Evidencia obtenida:**\
+\* **Diferencia drástica de centralidad y asimetría:** Los clientes que permanecen (`No`) presentan una distribución casi simétrica con una **media de 37,57 meses** y una **mediana de 38 meses** ($IQR = 46$ meses). En cambio, los clientes que abandonan (`Yes`) tienen una **media de 17,98 meses** y una **mediana de tan solo 10 meses** ($Q_1 = 2$ meses, $Q_3 = 29$ meses). \* **Importancia de usar la mediana y aparición de atípicos grupales:** En el grupo `Yes`, la distribución presenta una fuerte asimetría positiva ($Media = 17,98 > Mediana = 10$) y un coeficiente de variación altísimo ($CV = 108,64\%$). Además, el *boxplot* del grupo `Yes` revela observaciones atípicas en la cola superior (clientes que se dan de baja llevando casi 70 meses), las cuales tiran de la media hacia arriba. Por ello, **la mediana (10 meses) es un estadístico mucho más representativo** del cliente típico que abandona: **el 25% de las bajas ocurren en los primeros 2 meses y el 50% antes de cumplir los 10 meses**.
 
 ------------------------------------------------------------------------
 
-## 4. Diferencias en los cargos mensuales
+### 4.5. Pregunta 4: Diferencias en los cargos mensuales (`Monthly.Charges`)
 
-**¿Por qué realizamos este apartado?**  
-El factor económico es determinante en la satisfacción del consumidor. Analizamos la media y mediana de la factura mensual (`Monthly.Charges`) según el estado de baja y trazamos un gráfico de densidad superpuesto para observar en qué tramos de precio se concentran las fugas.
+**¿Por qué realizamos este análisis?**\
+Analizamos cómo influye la factura mensual en la decisión de baja. Dado que en la exploración inicial vimos que `Monthly.Charges` no sigue una campana simétrica unimodal, utilizamos un gráfico de densidad superpuesto acompañado de estadísticos de centralidad y dispersión por grupo.
 
 ```{r}
 #| label: diferencias-cargos
 
-datos_telco %>%
+tabla_cargos <- datos_telco %>%
   group_by(Churn.Label) %>%
   summarise(
-    Media_Cargos = mean(Monthly.Charges, na.rm = TRUE),
-    Mediana_Cargos = median(Monthly.Charges, na.rm = TRUE)
+    n = n(),
+    Media = mean(Monthly.Charges),
+    SD = sd(Monthly.Charges),
+    Q1 = quantile(Monthly.Charges, 0.25),
+    Mediana = median(Monthly.Charges),
+    Q3 = quantile(Monthly.Charges, 0.75),
+    IQR = IQR(Monthly.Charges),
+    CV_porc = (sd(Monthly.Charges) / mean(Monthly.Charges)) * 100
   )
 
+kable(tabla_cargos, digits = 2, 
+      caption = "Estadísticos descriptivos de Cargos Mensuales ($) según Abandono")
+
 ggplot(datos_telco, aes(x = Monthly.Charges, fill = Churn.Label)) +
-  geom_density(alpha = 0.6) +
-  labs(title = "Distribución de Cargos Mensuales", x = "Cargo Mensual ($)", y = "Densidad", fill = "Abandono") +
+  geom_density(alpha = 0.55) +
+  geom_vline(data = tabla_cargos, aes(xintercept = Mediana, color = Churn.Label),
+             linetype = "dashed", linewidth = 1) +
+  scale_fill_manual(values = c("No" = "#2b5c8f", "Yes" = "#d9534f"),
+                    labels = c("Permanece (No)", "Abandona (Yes)")) +
+  scale_color_manual(values = c("No" = "#1b3b5c", "Yes" = "#a93226"), guide = "none") +
+  labs(
+    title = "Densidad de Cargos Mensuales según Estado de Abandono",
+    subtitle = "Las líneas verticales discontinuas representan la mediana de cada grupo",
+    x = "Cargo Mensual ($)",
+    y = "Densidad",
+    fill = "Estado del cliente"
+  ) +
   theme_minimal()
 ```
 
-**¿Qué información nos proporciona?**  
-- Los clientes que **se quedan (`No`)** pagan de media **61,27 \$** al mes (mediana de **64,43 \$**), y en el gráfico de densidad se observa un gran pico de clientes fieles que pagan tarifas básicas alrededor de los 20 \$.
-- En cambio, los clientes que **se dan de baja (`Yes`)** asumen facturas notablemente más altas: una media de **74,44 \$** y una mediana de **79,65 \$**.
-- La curva de densidad de abandono muestra una fuerte concentración entre los **70 \$ y los 105 \$ mensuales**, lo que indica que las tarifas elevadas incrementan la sensibilidad al precio y empujan al cliente a buscar ofertas en la competencia.
+**Evidencia obtenida:**\
+\* Los clientes que abandonan (`Yes`) afrontan cuotas mensuales significativamente superiores y menos dispersas: tienen una **media de** $74,44\$$ y una **mediana de** $79,65\$$ ($Q_1 = 56,15\$$, $Q_3 = 94,20\$$, $SD = 24,67\$$). \* Los clientes que permanecen (`No`) pagan una **media de** $61,27\$$ y una **mediana de** $64,43\$$, con una mayor dispersión ($SD = 31,09\$$, $IQR = 63,30\$$). \* **Hallazgo visual clave (bimodalidad):** La curva de densidad explica por qué la desviación típica es mayor en los clientes fieles: el grupo `No` es claramente **bimodal**, con un enorme pico de clientes muy estables que pagan alrededor de $20\$$ al mes (tarifas básicas solo de voz) y otro bloque entre $50\$$ y $90\$$. Por el contrario, la masa de probabilidad de quienes abandonan (`Yes`) se concentra masivamente en la franja alta de precios, entre $70\$$ y $105\$$ mensuales.
 
 ------------------------------------------------------------------------
 
-## 5. Abandono según el servicio de Internet
+### 4.6. Pregunta 5: Abandono según el servicio de Internet
 
-**¿Por qué realizamos este apartado?**  
-Evaluamos si el tipo de tecnología de conexión a Internet contratada (`DSL`, `Fiber optic` o sin internet `No`) influye en la tasa de cancelación, lo cual puede alertarnos sobre problemas técnicos, de calidad o de sobreprecio en un producto concreto.
+**¿Por qué realizamos este análisis?**\
+Evaluamos si la tasa de cancelación depende del tipo de conexión a Internet contratada (`DSL`, `Fiber optic`, `No`).
 
 ```{r}
 #| label: abandono-internet
 
-table(datos_telco$Internet.Service, datos_telco$Churn.Label)
-round(prop.table(table(datos_telco$Internet.Service, datos_telco$Churn.Label), margin = 1) * 100, 2)
+tabla_internet <- table(Servicio = datos_telco$Internet.Service, Abandono = datos_telco$Churn.Label)
+prop_internet <- round(prop.table(tabla_internet, margin = 1) * 100, 2)
+
+kable(cbind(tabla_internet, prop_internet), 
+      caption = "Contingencia: Frecuencias absolutas y porcentajes por fila según Servicio de Internet")
 
 ggplot(datos_telco, aes(x = Internet.Service, fill = Churn.Label)) +
-  geom_bar(position = "fill") +
+  geom_bar(position = "fill", width = 0.6, color = "white") +
   scale_y_continuous(labels = scales::percent) +
-  labs(title = "Abandono por Tipo de Internet", x = "Servicio", y = "Porcentaje", fill = "Abandono") +
+  scale_fill_manual(values = c("No" = "#2b5c8f", "Yes" = "#d9534f"),
+                    labels = c("Permanece (No)", "Abandona (Yes)")) +
+  labs(
+    title = "Proporción de Abandono por Tipo de Servicio de Internet",
+    subtitle = "Porcentaje condicionado a cada tecnología contratada",
+    x = "Servicio de Internet",
+    y = "Porcentaje de clientes",
+    fill = "Estado del cliente"
+  ) +
   theme_minimal()
 ```
 
-**¿Qué información nos proporciona?**  
-- Los resultados muestran una diferencia muy llamativa según el servicio contratado:
-  - Los clientes con **Fibra óptica (*Fiber optic*)** presentan una tasa de abandono altísima del **41,89%** (1.297 bajas).
-  - En los usuarios de **DSL**, el abandono se reduce a menos de la mitad (**18,96%**).
-  - Quienes **no tienen internet contratado (`No`)** (solo usan telefonía) apenas se dan de baja (**7,40%**).
-- Esto conecta directamente con el punto anterior: la fibra óptica es un servicio más caro (lo que eleva los cargos mensuales) y, además, es el segmento donde más agresivamente compiten otras operadoras o donde los usuarios son más exigentes con la velocidad y estabilidad.
-
-------------------------------------------------------------------------
-
-## 6. Motivos de abandono más frecuentes
-
-**¿Por qué realizamos este apartado?**  
-Por último, filtramos exclusivamente a los clientes que han abandonado la empresa (`Churn.Label == "Yes"`) y contabilizamos las razones registradas en la variable `Churn.Reason`. Seleccionamos el Top 10 de motivos más repetidos y los ordenamos en un gráfico de barras horizontales para identificar las causas raíz declaradas por los propios usuarios.
-
-```{r}
-#| label: motivos-abandono
-
-motivos <- datos_telco %>%
-  filter(Churn.Label == "Yes" & Churn.Reason != "") %>%
-  count(Churn.Reason) %>%
-  arrange(desc(n)) %>%
-  top_n(10, n)
-
-ggplot(motivos, aes(x = reorder(Churn.Reason, n), y = n)) +
-  geom_col(fill = "#e74c3c") +
-  coord_flip() +
-  labs(title = "Principales motivos de abandono", x = "Motivo", y = "Frecuencia") +
-  theme_minimal()
-```
-
-**¿Qué información nos proporciona?**  
-- El gráfico pone de manifiesto que los motivos principales se agrupan en dos grandes bloques: **la competencia** y **la atención al cliente**:
-  1. **Actitud del personal de soporte (*Attitude of support person*)**: Es el motivo número uno de baja (**192 clientes**), a lo que se suma en sexto lugar la *actitud del proveedor de servicios* (**135 clientes**). Mejorar el trato al cliente es urgente.
-  2. **Ofertas superiores de la competencia**: Le siguen muy de cerca que el *competidor ofrecía mayores velocidades de descarga* (**189**), *más datos* (**162**), *mejores ofertas en general* (**140**) y *mejores dispositivos* (**130**).
-  3. **Factores técnicos y de precio**: También destacan la *fiabilidad de la red* (**103**), la *insatisfacción con el producto* (**102**) y el *precio demasiado alto* (**98**).
-- En conclusión, para reducir el *Churn*, la compañía debe actuar en dos frentes: mejorar la formación y empatía de su servicio de atención al cliente, y revisar las prestaciones y precios de sus tarifas de Fibra Óptica con contrato mensual para igualar el atractivo de los competidores.
+**Evidencia obtenida:**\
+\* El resultado es revelador y contraintuitivo a primera vista: la **Fibra Óptica (*Fiber optic*)**, pese a ser la tecnología de mayor velocidad, sufre una tasa de abandono alarmante del **41,89%** ($1.297$ bajas de $3.096$ usuarios). \* Los clientes con tecnología **DSL** presentan una tasa de baja de menos de la mitad (\*\*18,9
