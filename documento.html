@@ -79,35 +79,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="documento_files/libs/bootstrap/bootstrap-e913366020bf07a5f36b05a1a9ab135f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -116,26 +87,33 @@ window.Quarto = {
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
   <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Índice de Contenidos</h2>
+    <h2 id="toc-title">Índice de contenidos</h2>
    
   <ul>
-  <li><a href="#descripción-y-procedencia-de-los-datos" id="toc-descripción-y-procedencia-de-los-datos" class="nav-link active" data-scroll-target="#descripción-y-procedencia-de-los-datos">1. Descripción y procedencia de los datos</a>
+  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción">Introducción</a></li>
+  <li><a href="#descripción-y-procedencia-de-los-datos" id="toc-descripción-y-procedencia-de-los-datos" class="nav-link" data-scroll-target="#descripción-y-procedencia-de-los-datos">1. Descripción y procedencia de los datos</a>
   <ul class="collapse">
   <li><a href="#origen-contexto-y-unidad-de-observación" id="toc-origen-contexto-y-unidad-de-observación" class="nav-link" data-scroll-target="#origen-contexto-y-unidad-de-observación">1.1. Origen, contexto y unidad de observación</a></li>
-  <li><a href="#diccionario-de-variables-y-escalas-de-medición" id="toc-diccionario-de-variables-y-escalas-de-medición" class="nav-link" data-scroll-target="#diccionario-de-variables-y-escalas-de-medición">1.2. Diccionario de variables y escalas de medición</a></li>
+  <li><a href="#diccionario-de-las-variables-utilizadas" id="toc-diccionario-de-las-variables-utilizadas" class="nav-link" data-scroll-target="#diccionario-de-las-variables-utilizadas">1.2. Diccionario de las variables utilizadas</a></li>
   </ul></li>
   <li><a href="#planteamiento-inicial-del-eda" id="toc-planteamiento-inicial-del-eda" class="nav-link" data-scroll-target="#planteamiento-inicial-del-eda">2. Planteamiento inicial del EDA</a></li>
   <li><a href="#preguntas-de-partida" id="toc-preguntas-de-partida" class="nav-link" data-scroll-target="#preguntas-de-partida">3. Preguntas de partida</a></li>
   <li><a href="#proceso-de-exploración" id="toc-proceso-de-exploración" class="nav-link" data-scroll-target="#proceso-de-exploración">4. Proceso de exploración</a>
   <ul class="collapse">
-  <li><a href="#configuración-del-entorno-y-carga-de-datos" id="toc-configuración-del-entorno-y-carga-de-datos" class="nav-link" data-scroll-target="#configuración-del-entorno-y-carga-de-datos">4.0. Configuración del entorno y carga de datos</a></li>
-  <li><a href="#auditoría-de-calidad-de-datos-valores-faltantes-na-y-atípicos-outliers" id="toc-auditoría-de-calidad-de-datos-valores-faltantes-na-y-atípicos-outliers" class="nav-link" data-scroll-target="#auditoría-de-calidad-de-datos-valores-faltantes-na-y-atípicos-outliers">4.1. Auditoría de calidad de datos, valores faltantes (<code>NA</code>) y atípicos (<em>Outliers</em>)</a></li>
-  <li><a href="#pregunta-1-proporción-de-clientes-que-han-abandonado-la-compañía" id="toc-pregunta-1-proporción-de-clientes-que-han-abandonado-la-compañía" class="nav-link" data-scroll-target="#pregunta-1-proporción-de-clientes-que-han-abandonado-la-compañía">4.2. Pregunta 1: Proporción de clientes que han abandonado la compañía</a></li>
-  <li><a href="#pregunta-2-abandono-según-el-tipo-de-contrato" id="toc-pregunta-2-abandono-según-el-tipo-de-contrato" class="nav-link" data-scroll-target="#pregunta-2-abandono-según-el-tipo-de-contrato">4.3. Pregunta 2: Abandono según el tipo de contrato</a></li>
-  <li><a href="#pregunta-3-diferencias-en-la-antigüedad-tenure.months-según-abandono" id="toc-pregunta-3-diferencias-en-la-antigüedad-tenure.months-según-abandono" class="nav-link" data-scroll-target="#pregunta-3-diferencias-en-la-antigüedad-tenure.months-según-abandono">4.4. Pregunta 3: Diferencias en la antigüedad (<code>Tenure.Months</code>) según abandono</a></li>
-  <li><a href="#pregunta-4-diferencias-en-los-cargos-mensuales-monthly.charges" id="toc-pregunta-4-diferencias-en-los-cargos-mensuales-monthly.charges" class="nav-link" data-scroll-target="#pregunta-4-diferencias-en-los-cargos-mensuales-monthly.charges">4.5. Pregunta 4: Diferencias en los cargos mensuales (<code>Monthly.Charges</code>)</a></li>
-  <li><a href="#pregunta-5-abandono-según-el-servicio-de-internet" id="toc-pregunta-5-abandono-según-el-servicio-de-internet" class="nav-link" data-scroll-target="#pregunta-5-abandono-según-el-servicio-de-internet">4.6. Pregunta 5: Abandono según el servicio de Internet</a></li>
+  <li><a href="#configuración-del-entorno-y-carga-de-datos" id="toc-configuración-del-entorno-y-carga-de-datos" class="nav-link" data-scroll-target="#configuración-del-entorno-y-carga-de-datos">4.1. Configuración del entorno y carga de datos</a></li>
+  <li><a href="#exploración-inicial-y-calidad-de-los-datos" id="toc-exploración-inicial-y-calidad-de-los-datos" class="nav-link" data-scroll-target="#exploración-inicial-y-calidad-de-los-datos">4.2. Exploración inicial y calidad de los datos</a></li>
+  <li><a href="#pregunta-1-proporción-global-de-abandono" id="toc-pregunta-1-proporción-global-de-abandono" class="nav-link" data-scroll-target="#pregunta-1-proporción-global-de-abandono">4.3. Pregunta 1: proporción global de abandono</a></li>
+  <li><a href="#pregunta-2-abandono-según-el-tipo-de-contrato" id="toc-pregunta-2-abandono-según-el-tipo-de-contrato" class="nav-link" data-scroll-target="#pregunta-2-abandono-según-el-tipo-de-contrato">4.4. Pregunta 2: abandono según el tipo de contrato</a></li>
+  <li><a href="#pregunta-3-diferencias-en-la-antigüedad-según-el-abandono" id="toc-pregunta-3-diferencias-en-la-antigüedad-según-el-abandono" class="nav-link" data-scroll-target="#pregunta-3-diferencias-en-la-antigüedad-según-el-abandono">4.5. Pregunta 3: diferencias en la antigüedad según el abandono</a></li>
+  <li><a href="#pregunta-4-diferencias-en-los-cargos-mensuales" id="toc-pregunta-4-diferencias-en-los-cargos-mensuales" class="nav-link" data-scroll-target="#pregunta-4-diferencias-en-los-cargos-mensuales">4.6. Pregunta 4: diferencias en los cargos mensuales</a></li>
+  <li><a href="#pregunta-5-abandono-según-el-servicio-de-internet" id="toc-pregunta-5-abandono-según-el-servicio-de-internet" class="nav-link" data-scroll-target="#pregunta-5-abandono-según-el-servicio-de-internet">4.7. Pregunta 5: abandono según el servicio de Internet</a></li>
+  <li><a href="#pregunta-6-interacción-entre-servicio-de-internet-y-tipo-de-contrato" id="toc-pregunta-6-interacción-entre-servicio-de-internet-y-tipo-de-contrato" class="nav-link" data-scroll-target="#pregunta-6-interacción-entre-servicio-de-internet-y-tipo-de-contrato">4.8. Pregunta 6: interacción entre servicio de Internet y tipo de contrato</a></li>
+  <li><a href="#pregunta-7-motivos-de-abandono-más-frecuentes" id="toc-pregunta-7-motivos-de-abandono-más-frecuentes" class="nav-link" data-scroll-target="#pregunta-7-motivos-de-abandono-más-frecuentes">4.9. Pregunta 7: motivos de abandono más frecuentes</a></li>
   </ul></li>
+  <li><a href="#conclusiones-generales" id="toc-conclusiones-generales" class="nav-link" data-scroll-target="#conclusiones-generales">5. Conclusiones generales</a></li>
+  <li><a href="#limitaciones-del-análisis" id="toc-limitaciones-del-análisis" class="nav-link" data-scroll-target="#limitaciones-del-análisis">6. Limitaciones del análisis</a></li>
+  <li><a href="#uso-de-inteligencia-artificial" id="toc-uso-de-inteligencia-artificial" class="nav-link" data-scroll-target="#uso-de-inteligencia-artificial">7. Uso de inteligencia artificial</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias">8. Referencias</a></li>
   </ul>
 </nav>
 </div>
@@ -162,7 +140,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">22/10/2026</p>
+      <p class="date">25/10/2026</p>
     </div>
   </div>
   
@@ -174,145 +152,241 @@ window.Quarto = {
 </header>
 
 
+<section id="introducción" class="level2">
+<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
+<p>Este informe presenta un análisis exploratorio de los datos de clientes de una compañía de telecomunicaciones ficticia. El objetivo es describir la proporción de clientes que abandonaron la compañía y explorar qué características contractuales, económicas y relacionadas con los servicios están asociadas con el abandono (<em>churn</em>). Para ello se utilizan tablas de frecuencias, medidas descriptivas y representaciones gráficas. Los resultados se interpretan como asociaciones descriptivas, no como demostraciones de causalidad.</p>
+</section>
 <section id="descripción-y-procedencia-de-los-datos" class="level2">
 <h2 class="anchored" data-anchor-id="descripción-y-procedencia-de-los-datos">1. Descripción y procedencia de los datos</h2>
 <section id="origen-contexto-y-unidad-de-observación" class="level3">
 <h3 class="anchored" data-anchor-id="origen-contexto-y-unidad-de-observación">1.1. Origen, contexto y unidad de observación</h3>
-<p>El conjunto de datos analizado en este estudio corresponde al dataset <strong><code>Telco Customer Churn</code></strong>, desarrollado originalmente por <strong>IBM Cognos Analytics</strong> (módulo de negocio de telecomunicaciones) y distribuido públicamente a través de repositorios científicos como Kaggle y la comunidad de ciencia de datos de IBM.</p>
-<ul>
-<li><strong>¿Cómo se han obtenido?</strong> Los datos proceden del sistema de gestión de relaciones con clientes (CRM) y facturación de una operadora ficticia pero realista que presta servicios de telefonía fija e Internet residencial en el estado de <strong>California (Estados Unidos)</strong> durante el tercer trimestre (Q3) del año fiscal.</li>
-<li><strong>¿Qué representa cada observación?</strong> El dataset consta de <strong><span class="math inline">\(n = 7.043\)</span> observaciones (filas)</strong> y <strong>33 variables (columnas)</strong>. Cada fila representa a un <strong>cliente único</strong> identificado mediante un código alfanumérico (<code>CustomerID</code>).</li>
-<li><strong>Referencias de la fuente:</strong>
-<ul>
-<li>IBM Cognos Analytics (2019). <em>Telco customer churn (11.1.3+)</em> [Conjunto de datos]. IBM Community. Recuperado de: <code>https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113</code></li>
-<li>Kaggle Dataset Repository: <em>Telco Customer Churn - Focused customer retention programs</em>.</li>
-</ul></li>
-</ul>
+<p>El archivo utilizado es <code>Telco_customer_churn.csv</code>, correspondiente al conjunto de datos <em>Telco Customer Churn</em> descrito en la documentación pública de IBM Cognos Analytics. La documentación de IBM indica que el conjunto representa una compañía ficticia de telecomunicaciones que ofrece servicios de telefonía e Internet en California, y que la variable de abandono señala si el cliente dejó la compañía durante el último mes. El material se refiere a datos del tercer trimestre (Q3) del periodo descrito por IBM; esto no significa que la etiqueta <code>Churn.Label</code> mida necesariamente las bajas de todo un trimestre.</p>
+<p>El conjunto contiene <strong>7.043 observaciones y 33 variables</strong>. Cada fila representa un cliente, identificado mediante <code>CustomerID</code>. Las columnas describen la localización, el perfil demográfico, los servicios contratados, el contrato, la facturación y el estado o motivo del abandono.</p>
+<p>La descripción oficial de IBM puede consultarse en: <a href="https://community.ibm.com/community/user/blogs/steven-macko/2019/07/11/telco-customer-churn-1113">IBM Community, <em>Telco customer churn (11.1.3+)</em></a> y en la <a href="https://www.ibm.com/docs/en/cognos-analytics/12.1.x?topic=samples-telco-customer-churn">documentación de IBM Cognos Analytics</a>.</p>
+<p><strong>Origen concreto de la descarga del archivo:</strong> debe añadirse la URL exacta del sitio desde el que el grupo obtuvo <code>Telco_customer_churn.csv</code>, si fue distinto de la referencia de IBM.</p>
 </section>
-<section id="diccionario-de-variables-y-escalas-de-medición" class="level3">
-<h3 class="anchored" data-anchor-id="diccionario-de-variables-y-escalas-de-medición">1.2. Diccionario de variables y escalas de medición</h3>
-<p>Siguiendo la taxonomía estadística de variables y escalas de medición, clasificamos los atributos del conjunto de datos en cinco bloques temáticos:</p>
-<section id="a.-identificación-constantes-y-ubicación-geográfica" class="level4">
-<h4 class="anchored" data-anchor-id="a.-identificación-constantes-y-ubicación-geográfica">A. Identificación, Constantes y Ubicación Geográfica</h4>
+<section id="diccionario-de-las-variables-utilizadas" class="level3">
+<h3 class="anchored" data-anchor-id="diccionario-de-las-variables-utilizadas">1.2. Diccionario de las variables utilizadas</h3>
+<p>A continuación se describen las principales variables del conjunto que se utilizan o se mencionan durante el análisis.</p>
+<section id="a.-identificación-y-ubicación" class="level4">
+<h4 class="anchored" data-anchor-id="a.-identificación-y-ubicación">A. Identificación y ubicación</h4>
 <ul>
-<li><strong><code>CustomerID</code></strong> <em>(Cualitativa nominal / Identificador)</em>: Clave primaria única de cada cliente.</li>
-<li><strong><code>Count</code></strong> <em>(Cuantitativa discreta - Constante)</em>: Valor constante igual a <code>1</code> empleado para agregaciones rápidas en cuadros de mando. Carece de variabilidad estadística.</li>
-<li><strong><code>Country</code>, <code>State</code>, <code>City</code>, <code>Zip.Code</code></strong> <em>(Cualitativas nominales)</em>: Ubicación de residencia. <code>Country</code> (<em>United States</em>) y <code>State</code> (<em>California</em>) son constantes en toda la muestra.</li>
-<li><strong><code>Lat.Long</code>, <code>Latitude</code>, <code>Longitude</code></strong> <em>(Cuantitativas continuas - Escala de intervalo)</em>: Coordenadas geográficas de la residencia del cliente.</li>
+<li><strong><code>CustomerID</code></strong>: identificador de cada cliente.</li>
+<li><strong><code>Count</code></strong>: campo de recuento que tiene el valor 1 para cada fila; no presenta variabilidad.</li>
+<li><strong><code>Country</code>, <code>State</code>, <code>City</code>, <code>Zip.Code</code></strong>: país, estado, ciudad y código postal de residencia. En este conjunto, <code>Country</code> y <code>State</code> son constantes.</li>
+<li><strong><code>Lat.Long</code></strong>: campo de texto que combina latitud y longitud.</li>
+<li><strong><code>Latitude</code>, <code>Longitude</code></strong>: coordenadas geográficas numéricas.</li>
 </ul>
 </section>
 <section id="b.-perfil-demográfico" class="level4">
-<h4 class="anchored" data-anchor-id="b.-perfil-demográfico">B. Perfil Demográfico</h4>
+<h4 class="anchored" data-anchor-id="b.-perfil-demográfico">B. Perfil demográfico</h4>
 <ul>
-<li><strong><code>Gender</code></strong> <em>(Cualitativa nominal)</em>: Género del titular (<code>Male</code>, <code>Female</code>).</li>
-<li><strong><code>Senior.Citizen</code></strong> <em>(Cualitativa nominal dicotómica)</em>: Indica si el cliente tiene 65 años o más (<code>Yes</code>, <code>No</code>).</li>
-<li><strong><code>Partner</code></strong> <em>(Cualitativa nominal dicotómica)</em>: Indica si el cliente tiene pareja (<code>Yes</code>, <code>No</code>).</li>
-<li><strong><code>Dependents</code></strong> <em>(Cualitativa nominal dicotómica)</em>: Indica si el cliente convive con personas a su cargo, como hijos o mayores (<code>Yes</code>, <code>No</code>).</li>
+<li><strong><code>Gender</code></strong>: género registrado (<code>Male</code>, <code>Female</code>).</li>
+<li><strong><code>Senior.Citizen</code></strong>: indica si el cliente está clasificado como persona mayor (<code>Yes</code>, <code>No</code>; la documentación de IBM lo define como 65 años o más).</li>
+<li><strong><code>Partner</code></strong>: indica si el cliente tiene pareja.</li>
+<li><strong><code>Dependents</code></strong>: indica si tiene personas dependientes a su cargo.</li>
 </ul>
 </section>
-<section id="c.-relación-comercial-y-servicios-contratados" class="level4">
-<h4 class="anchored" data-anchor-id="c.-relación-comercial-y-servicios-contratados">C. Relación Comercial y Servicios Contratados</h4>
+<section id="c.-relación-y-servicios-contratados" class="level4">
+<h4 class="anchored" data-anchor-id="c.-relación-y-servicios-contratados">C. Relación y servicios contratados</h4>
 <ul>
-<li><strong><code>Tenure.Months</code></strong> <em>(Cuantitativa discreta - Escala de razón)</em>: Antigüedad del cliente en la compañía medida en meses completos (posee cero absoluto: <code>0</code> meses indica alta en el mes en curso).</li>
-<li><strong><code>Phone.Service</code>, <code>Multiple.Lines</code></strong> <em>(Cualitativas nominales)</em>: Contratación de línea telefónica fija y líneas múltiples.</li>
-<li><strong><code>Internet.Service</code></strong> <em>(Cualitativa nominal)</em>: Tecnología de acceso a Internet contratada (<code>DSL</code>, <code>Fiber optic</code>, <code>No</code>).</li>
-<li><strong><code>Online.Security</code>, <code>Online.Backup</code>, <code>Device.Protection</code>, <code>Tech.Support</code>, <code>Streaming.TV</code>, <code>Streaming.Movies</code></strong> <em>(Cualitativas nominales)</em>: Servicios de valor añadido (<code>Yes</code>, <code>No</code>, <code>No internet service</code>).</li>
+<li><strong><code>Tenure.Months</code></strong>: antigüedad de la relación con la compañía, en meses.</li>
+<li><strong><code>Phone.Service</code>, <code>Multiple.Lines</code></strong>: servicio telefónico y líneas múltiples.</li>
+<li><strong><code>Internet.Service</code></strong>: servicio de Internet (<code>DSL</code>, <code>Fiber optic</code> o <code>No</code>).</li>
+<li><strong><code>Online.Security</code>, <code>Online.Backup</code>, <code>Device.Protection</code>, <code>Tech.Support</code>, <code>Streaming.TV</code>, <code>Streaming.Movies</code></strong>: indicadores de servicios adicionales.</li>
 </ul>
 </section>
-<section id="d.-facturación-y-contrato" class="level4">
-<h4 class="anchored" data-anchor-id="d.-facturación-y-contrato">D. Facturación y Contrato</h4>
+<section id="d.-contrato-y-facturación" class="level4">
+<h4 class="anchored" data-anchor-id="d.-contrato-y-facturación">D. Contrato y facturación</h4>
 <ul>
-<li><strong><code>Contract</code></strong> <em>(Cualitativa ordinal)</em>: Nivel de compromiso o permanencia contractual, ordenado de menor a mayor vinculación: <code>Month-to-month</code> (mes a mes) &lt; <code>One year</code> (un año) &lt; <code>Two year</code> (dos años).</li>
-<li><strong><code>Paperless.Billing</code></strong> <em>(Cualitativa nominal dicotómica)</em>: Facturación electrónica activa (<code>Yes</code>, <code>No</code>).</li>
-<li><strong><code>Payment.Method</code></strong> <em>(Cualitativa nominal)</em>: Método de pago habitual (cheque electrónico, cheque postal, transferencia bancaria automática o tarjeta de crédito automática).</li>
-<li><strong><code>Monthly.Charges</code></strong> <em>(Cuantitativa continua - Escala de razón)</em>: Cuota mensual actual facturada al cliente (en dólares, <span class="math inline">\(\$\)</span>).</li>
-<li><strong><code>Total.Charges</code></strong> <em>(Cuantitativa continua - Escala de razón)</em>: Importe total acumulado facturado al cliente desde su alta en la compañía (en <span class="math inline">\(\$\)</span>).</li>
+<li><strong><code>Contract</code></strong>: tipo de contrato (<code>Month-to-month</code>, <code>One year</code>, <code>Two year</code>).</li>
+<li><strong><code>Paperless.Billing</code></strong>: indica si la facturación es electrónica.</li>
+<li><strong><code>Payment.Method</code></strong>: método de pago.</li>
+<li><strong><code>Monthly.Charges</code></strong>: cargo mensual actual, expresado en dólares estadounidenses.</li>
+<li><strong><code>Total.Charges</code></strong>: importe total acumulado de los cargos, expresado en dólares estadounidenses.</li>
 </ul>
 </section>
-<section id="e.-variables-objetivo-y-métricas-de-abandono-churn" class="level4">
-<h4 class="anchored" data-anchor-id="e.-variables-objetivo-y-métricas-de-abandono-churn">E. Variables Objetivo y Métricas de Abandono (<em>Churn</em>)</h4>
+<section id="e.-abandono-y-métricas-asociadas" class="level4">
+<h4 class="anchored" data-anchor-id="e.-abandono-y-métricas-asociadas">E. Abandono y métricas asociadas</h4>
 <ul>
-<li><strong><code>Churn.Label</code></strong> <em>(Cualitativa nominal dicotómica)</em>: Variable objetivo principal. Indica si el cliente abandonó la empresa en el último trimestre (<code>Yes</code>) o permanece activo (<code>No</code>).</li>
-<li><strong><code>Churn.Value</code></strong> <em>(Cuantitativa discreta binaria)</em>: Codificación numérica de <code>Churn.Label</code> (<code>1</code> = Abandono, <code>0</code> = Permanencia).</li>
-<li><strong><code>Churn.Score</code></strong> <em>(Cuantitativa discreta - Escala de intervalo)</em>: Puntuación predictiva interna de IBM (de 0 a 100) sobre propensión a la baja.</li>
-<li><strong><code>CLTV</code></strong> <em>(Cuantitativa continua - Escala de razón)</em>: <em>Customer Lifetime Value</em> o valor económico estimado del cliente a largo plazo (en <span class="math inline">\(\$\)</span>).</li>
-<li><strong><code>Churn.Reason</code></strong> <em>(Cualitativa nominal)</em>: Motivo específico declarado por el cliente al tramitar la baja (solo disponible para observaciones con <code>Churn.Label == "Yes"</code>).</li>
+<li><strong><code>Churn.Label</code></strong>: indica si el cliente abandonó la compañía (<code>Yes</code>) o permaneció (<code>No</code>). Según la documentación de IBM, la etiqueta se refiere a la salida durante el último mes.</li>
+<li><strong><code>Churn.Value</code></strong>: codificación numérica de <code>Churn.Label</code> (<code>1</code> = abandono, <code>0</code> = permanencia).</li>
+<li><strong><code>Churn.Score</code></strong>: puntuación de abandono calculada en el conjunto de datos; no se utiliza como explicación independiente en este análisis descriptivo.</li>
+<li><strong><code>CLTV</code></strong>: valor de vida del cliente estimado (<em>Customer Lifetime Value</em>).</li>
+<li><strong><code>Churn.Reason</code></strong>: motivo registrado para los clientes que abandonaron la compañía. Para clientes activos, este campo queda vacío y no se interpreta como un motivo desconocido de abandono.</li>
 </ul>
-<hr>
 </section>
 </section>
 </section>
 <section id="planteamiento-inicial-del-eda" class="level2">
 <h2 class="anchored" data-anchor-id="planteamiento-inicial-del-eda">2. Planteamiento inicial del EDA</h2>
-<p>El objetivo de este Análisis Exploratorio de Datos (EDA) es actuar como “detectives de datos” (en palabras de John Tukey) para comprender la estructura subyacente de la cartera de clientes e identificar qué factores demográficos, técnicos y económicos están asociados con la pérdida de clientes (<em>Churn</em>).</p>
-<p>Para abordar la exploración de forma rigurosa y ordenada, hemos diseñado el siguiente <strong>plan de trabajo en cuatro etapas</strong>:</p>
+<p>El objetivo del análisis exploratorio es comprender la estructura del conjunto de datos e identificar patrones entre el abandono y las características de los clientes, los contratos, los servicios y la facturación. Para mantener un proceso ordenado se seguirán cuatro etapas:</p>
 <ol type="1">
-<li><strong>Fase 1: Auditoría de calidad, limpieza y validación estructural.</strong> Antes de calcular estadísticos o graficar, inspeccionaremos los tipos de datos importados por R, buscaremos <strong>valores faltantes (<code>NA</code>)</strong> o cadenas de texto vacías, verificaremos la existencia de variables constantes o redundantes, y comprobaremos la presencia de <strong>valores atípicos (<em>outliers</em>)</strong> en las variables numéricas clave (<code>Tenure.Months</code>, <code>Monthly.Charges</code> y <code>Total.Charges</code>).</li>
-<li><strong>Fase 2: Análisis descriptivo univariante.</strong> Caracterizaremos la variable respuesta (<code>Churn.Label</code>) y las principales variables explicativas mediante tablas de frecuencias (absolutas y relativas) para datos categóricos, y resúmenes numéricos completos para datos cuantitativos: <strong>medidas de centralidad</strong> (media, mediana), <strong>posición</strong> (cuartiles, mínimo, máximo) y <strong>dispersión</strong> (desviación típica <span class="math inline">\(s\)</span>, rango intercuartílico <span class="math inline">\(IQR\)</span> y coeficiente de variación <span class="math inline">\(CV\)</span>).</li>
-<li><strong>Fase 3: Exploración bivariante orientada por hipótesis.</strong> Cruzaremos el estado de abandono con las dimensiones contractuales (<code>Contract</code>), temporales (<code>Tenure.Months</code>), económicas (<code>Monthly.Charges</code>) y tecnológicas (<code>Internet.Service</code>), eligiendo la representación gráfica adecuada según la naturaleza de cada par de variables (diagramas de barras apiladas al 100% para comparar proporciones condicionadas, <em>boxplots</em> e histogramas/curvas de densidad para distribuciones continuas).</li>
-<li><strong>Fase 4: Profundización multivariante y análisis de causas raíz.</strong> A partir de los hallazgos bivariantes, investigaremos cómo interactúan simultáneamente el precio, la tecnología y el contrato sobre el abandono, y cerraremos el estudio analizando las razones textuales declaradas por los propios usuarios que causaron baja (<code>Churn.Reason</code>).</li>
+<li><strong>Revisión de la calidad de los datos:</strong> comprobar dimensiones, tipos de variables, valores ausentes, filas o identificadores duplicados, variables constantes y posibles valores atípicos.</li>
+<li><strong>Descripción inicial:</strong> obtener tablas de frecuencias para variables categóricas y medidas de centralidad, posición y dispersión para las variables cuantitativas seleccionadas.</li>
+<li><strong>Análisis bivariante:</strong> comparar el abandono con el tipo de contrato, la antigüedad, los cargos mensuales y el servicio de Internet.</li>
+<li><strong>Exploración complementaria:</strong> cruzar el servicio de Internet con el tipo de contrato y resumir los motivos registrados para las bajas.</li>
 </ol>
-<hr>
+<p>Los gráficos y estadísticos se seleccionarán según la naturaleza de las variables. Se utilizarán proporciones y barras apiladas para comparar variables categóricas, diagramas de caja para comparar distribuciones numéricas y curvas de densidad para visualizar los cargos mensuales.</p>
 </section>
 <section id="preguntas-de-partida" class="level2">
 <h2 class="anchored" data-anchor-id="preguntas-de-partida">3. Preguntas de partida</h2>
-<p>A partir del contexto de negocio, formulamos las siguientes preguntas iniciales que guiarán nuestra investigación:</p>
 <ol type="1">
-<li><strong>Magnitud global del problema:</strong> ¿Qué proporción exacta de clientes ha abandonado la compañía en el último trimestre?</li>
-<li><strong>Impacto de la vinculación contractual:</strong> ¿Cómo varía la tasa de abandono según la modalidad de contrato (<code>Month-to-month</code>, <code>One year</code>, <code>Two year</code>)?</li>
-<li><strong>Efecto de la antigüedad (ciclo de vida):</strong> ¿Existen diferencias sustanciales en la antigüedad (<code>Tenure.Months</code>) entre los clientes que abandonan y los que permanecen? ¿En qué momento temporal es más crítico el riesgo de fuga?</li>
-<li><strong>Sensibilidad al precio:</strong> ¿Se observan diferencias en la distribución, centralidad y dispersión de los cargos mensuales (<code>Monthly.Charges</code>) según el estado de abandono?</li>
-<li><strong>Calidad y tipo de producto:</strong> ¿Varía la proporción de abandono según el servicio de Internet contratado (<code>DSL</code>, <code>Fiber optic</code>, <code>No</code>)?</li>
-<li><strong>Interacción multivariante (evolución del análisis):</strong> ¿Por qué un servicio tecnológicamente superior como la Fibra Óptica presenta tasas de baja tan elevadas? ¿Cómo interactúan conjuntamente la tecnología, la antigüedad, el tipo de contrato y la cuota mensual?</li>
-<li><strong>Causas declaradas:</strong> ¿Cuáles son los motivos específicos de abandono (<code>Churn.Reason</code>) más frecuentes reportados por los clientes que se van?</li>
+<li>¿Qué proporción de clientes presenta <code>Churn.Label = "Yes"</code>?</li>
+<li>¿Cómo varía la proporción de abandono según el tipo de contrato?</li>
+<li>¿Existen diferencias en la antigüedad entre quienes abandonan y quienes permanecen?</li>
+<li>¿Se observan diferencias en la distribución de los cargos mensuales según el abandono?</li>
+<li>¿Varía la proporción de abandono según el servicio de Internet contratado?</li>
+<li>¿Cómo varía la proporción de abandono al combinar el servicio de Internet con el tipo de contrato?</li>
+<li>¿Cuáles son los motivos de abandono más frecuentes entre los clientes con una baja registrada?</li>
 </ol>
-<hr>
 </section>
 <section id="proceso-de-exploración" class="level2">
 <h2 class="anchored" data-anchor-id="proceso-de-exploración">4. Proceso de exploración</h2>
 <section id="configuración-del-entorno-y-carga-de-datos" class="level3">
-<h3 class="anchored" data-anchor-id="configuración-del-entorno-y-carga-de-datos">4.0. Configuración del entorno y carga de datos</h3>
-<p>Cargamos las librerías necesarias para la manipulación de datos (<code>dplyr</code>, <code>tidyr</code>), visualización estadística (<code>ggplot2</code>, <code>GGally</code>, <code>scales</code>) y generación de tablas limpias (<code>knitr</code>).</p>
+<h3 class="anchored" data-anchor-id="configuración-del-entorno-y-carga-de-datos">4.1. Configuración del entorno y carga de datos</h3>
+<p>Se cargan los paquetes necesarios y se importa el CSV. Se indica que las cadenas vacías se lean como valores ausentes para poder revisarlas explícitamente.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Lectura del conjunto de datos tratando cadenas vacías como texto para auditarlas</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>datos_telco <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Telco_customer_churn.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>datos_telco <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Telco_customer_churn.csv"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Asegurar que los cargos totales se traten como valores numéricos</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>datos_telco<span class="sc">$</span>Total.Charges <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(datos_telco<span class="sc">$</span>Total.Charges)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<hr>
 </section>
-<section id="auditoría-de-calidad-de-datos-valores-faltantes-na-y-atípicos-outliers" class="level3">
-<h3 class="anchored" data-anchor-id="auditoría-de-calidad-de-datos-valores-faltantes-na-y-atípicos-outliers">4.1. Auditoría de calidad de datos, valores faltantes (<code>NA</code>) y atípicos (<em>Outliers</em>)</h3>
-<p><strong>Justificación metodológica:</strong> Un error habitual al analizar datos reales es calcular medias o generar gráficos directamente sin verificar si existen datos perdidos (<code>NA</code>), incoherencias o valores extremos que distorsionen los estimadores no robustos (como la media o la desviación típica).</p>
+<section id="exploración-inicial-y-calidad-de-los-datos" class="level3">
+<h3 class="anchored" data-anchor-id="exploración-inicial-y-calidad-de-los-datos">4.2. Exploración inicial y calidad de los datos</h3>
+<p>Primero se comprueba el tamaño del conjunto, las primeras observaciones, los tipos de variables y la existencia de duplicados.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dimensiones del dataset</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Dimensiones del dataset:"</span>, <span class="fu">nrow</span>(datos_telco), <span class="st">"filas y"</span>, <span class="fu">ncol</span>(datos_telco), <span class="st">"columnas.</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(datos_telco)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Dimensiones del dataset: 7043 filas y 33 columnas.</code></pre>
+<pre><code>[1] 7043   33</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobación de valores NA por columna</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>na_por_columna <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(datos_telco))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>na_por_columna[na_por_columna <span class="sc">&gt;</span> <span class="dv">0</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos_telco)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total.Charges 
-           11 </code></pre>
+<pre><code>  CustomerID Count       Country      State        City Zip.Code
+1 3668-QPYBK     1 United States California Los Angeles    90003
+2 9237-HQITU     1 United States California Los Angeles    90005
+3 9305-CDSKC     1 United States California Los Angeles    90006
+4 7892-POOKP     1 United States California Los Angeles    90010
+5 0280-XJGEX     1 United States California Los Angeles    90015
+6 4190-MFLUW     1 United States California Los Angeles    90020
+                Lat.Long Latitude Longitude Gender Senior.Citizen Partner
+1 33.964131, -118.272783 33.96413 -118.2728   Male             No      No
+2  34.059281, -118.30742 34.05928 -118.3074 Female             No      No
+3 34.048013, -118.293953 34.04801 -118.2940 Female             No      No
+4 34.062125, -118.315709 34.06213 -118.3157 Female             No     Yes
+5 34.039224, -118.266293 34.03922 -118.2663   Male             No      No
+6 34.066367, -118.309868 34.06637 -118.3099 Female             No     Yes
+  Dependents Tenure.Months Phone.Service Multiple.Lines Internet.Service
+1         No             2           Yes             No              DSL
+2        Yes             2           Yes             No      Fiber optic
+3        Yes             8           Yes            Yes      Fiber optic
+4        Yes            28           Yes            Yes      Fiber optic
+5        Yes            49           Yes            Yes      Fiber optic
+6         No            10           Yes             No              DSL
+  Online.Security Online.Backup Device.Protection Tech.Support Streaming.TV
+1             Yes           Yes                No           No           No
+2              No            No                No           No           No
+3              No            No               Yes           No          Yes
+4              No            No               Yes          Yes          Yes
+5              No           Yes               Yes           No          Yes
+6              No            No               Yes          Yes           No
+  Streaming.Movies       Contract Paperless.Billing            Payment.Method
+1               No Month-to-month               Yes              Mailed check
+2               No Month-to-month               Yes          Electronic check
+3              Yes Month-to-month               Yes          Electronic check
+4              Yes Month-to-month               Yes          Electronic check
+5              Yes Month-to-month               Yes Bank transfer (automatic)
+6               No Month-to-month                No   Credit card (automatic)
+  Monthly.Charges Total.Charges Churn.Label Churn.Value Churn.Score CLTV
+1           53.85        108.15         Yes           1          86 3239
+2           70.70        151.65         Yes           1          67 2701
+3           99.65        820.50         Yes           1          86 5372
+4          104.80       3046.05         Yes           1          84 5003
+5          103.70       5036.30         Yes           1          89 5340
+6           55.20        528.35         Yes           1          78 5925
+                               Churn.Reason
+1              Competitor made better offer
+2                                     Moved
+3                                     Moved
+4                                     Moved
+5             Competitor had better devices
+6 Competitor offered higher download speeds</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos_telco)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   7043 obs. of  33 variables:
+ $ CustomerID       : chr  "3668-QPYBK" "9237-HQITU" "9305-CDSKC" "7892-POOKP" ...
+ $ Count            : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ Country          : chr  "United States" "United States" "United States" "United States" ...
+ $ State            : chr  "California" "California" "California" "California" ...
+ $ City             : chr  "Los Angeles" "Los Angeles" "Los Angeles" "Los Angeles" ...
+ $ Zip.Code         : int  90003 90005 90006 90010 90015 90020 90022 90024 90028 90029 ...
+ $ Lat.Long         : chr  "33.964131, -118.272783" "34.059281, -118.30742" "34.048013, -118.293953" "34.062125, -118.315709" ...
+ $ Latitude         : num  34 34.1 34 34.1 34 ...
+ $ Longitude        : num  -118 -118 -118 -118 -118 ...
+ $ Gender           : chr  "Male" "Female" "Female" "Female" ...
+ $ Senior.Citizen   : chr  "No" "No" "No" "No" ...
+ $ Partner          : chr  "No" "No" "No" "Yes" ...
+ $ Dependents       : chr  "No" "Yes" "Yes" "Yes" ...
+ $ Tenure.Months    : int  2 2 8 28 49 10 1 1 47 1 ...
+ $ Phone.Service    : chr  "Yes" "Yes" "Yes" "Yes" ...
+ $ Multiple.Lines   : chr  "No" "No" "Yes" "Yes" ...
+ $ Internet.Service : chr  "DSL" "Fiber optic" "Fiber optic" "Fiber optic" ...
+ $ Online.Security  : chr  "Yes" "No" "No" "No" ...
+ $ Online.Backup    : chr  "Yes" "No" "No" "No" ...
+ $ Device.Protection: chr  "No" "No" "Yes" "Yes" ...
+ $ Tech.Support     : chr  "No" "No" "No" "Yes" ...
+ $ Streaming.TV     : chr  "No" "No" "Yes" "Yes" ...
+ $ Streaming.Movies : chr  "No" "No" "Yes" "Yes" ...
+ $ Contract         : chr  "Month-to-month" "Month-to-month" "Month-to-month" "Month-to-month" ...
+ $ Paperless.Billing: chr  "Yes" "Yes" "Yes" "Yes" ...
+ $ Payment.Method   : chr  "Mailed check" "Electronic check" "Electronic check" "Electronic check" ...
+ $ Monthly.Charges  : num  53.9 70.7 99.7 104.8 103.7 ...
+ $ Total.Charges    : num  108 152 820 3046 5036 ...
+ $ Churn.Label      : chr  "Yes" "Yes" "Yes" "Yes" ...
+ $ Churn.Value      : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ Churn.Score      : int  86 67 86 84 89 78 100 92 77 97 ...
+ $ CLTV             : int  3239 2701 5372 5003 5340 5925 5433 4832 5789 2915 ...
+ $ Churn.Reason     : chr  "Competitor made better offer" "Moved" "Moved" "Moved" ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Identificadores CustomerID duplicados:"</span>, <span class="fu">sum</span>(<span class="fu">duplicated</span>(datos_telco<span class="sc">$</span>CustomerID)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Identificadores CustomerID duplicados: 0 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Filas duplicadas completas:"</span>, <span class="fu">sum</span>(<span class="fu">duplicated</span>(datos_telco)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Filas duplicadas completas: 0 </code></pre>
 </div>
 </div>
-<p><strong>Problema encontrado 1 (Valores <code>NA</code> en <code>Total.Charges</code>):</strong><br>
-La comprobación revela exactamente <strong>11 valores faltantes (<code>NA</code>)</strong> en la variable cuantitativa <code>Total.Charges</code>. Antes de eliminarlos automáticamente, investigamos qué tienen en común estos 11 registros:</p>
+<p>A continuación se cuentan los valores ausentes por variable.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>datos_telco <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(Total.Charges)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CustomerID, Tenure.Months, Contract, Monthly.Charges, Total.Charges, Churn.Label) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Clientes con valores faltantes (NA) en Total.Charges"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>na_por_columna <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(datos_telco))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>na_por_columna[na_por_columna <span class="sc">&gt;</span> <span class="dv">0</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total.Charges  Churn.Reason 
+           11          5174 </code></pre>
+</div>
+</div>
+<p>La revisión del archivo identifica <strong>11 valores ausentes en <code>Total.Charges</code></strong>. Al examinar esos registros, los 11 corresponden a clientes con <code>Tenure.Months = 0</code> y <code>Churn.Label = "No"</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(Total.Charges)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CustomerID, Tenure.Months, Contract, Monthly.Charges, Total.Charges, Churn.Label) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">"Registros con Total.Charges ausente"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Clientes con valores faltantes (NA) en Total.Charges</caption>
+<caption>Registros con Total.Charges ausente</caption>
 <colgroup>
 <col style="width: 14%">
 <col style="width: 18%">
@@ -424,52 +498,53 @@ La comprobación revela exactamente <strong>11 valores faltantes (<code>NA</code
 </table>
 </div>
 </div>
-<p><strong>Decisión tomada sobre los <code>NA</code>:</strong><br>
-Observamos un patrón determinista perfecto: <strong>los 11 clientes con <code>Total.Charges == NA</code> tienen una antigüedad exactamente igual a <code>0</code> meses (<code>Tenure.Months == 0</code>)</strong> y ninguno ha abandonado la compañía (<code>Churn.Label == "No"</code>). Es decir, son clientes que acaban de firmar su contrato (de 1 o 2 años) y aún no han cerrado su primer ciclo de facturación mensual.<br>
-Por tanto, eliminar estas filas haría perder información válida sobre clientes recién captados. La decisión estadísticamente correcta es <strong>imputar <code>Total.Charges = 0</code></strong> para estos 11 casos, reflejando fielmente que su facturación acumulada hasta la fecha es de <span class="math inline">\(0\$\)</span>.</p>
+<p>Dado que estos clientes tienen una antigüedad de cero meses, se adopta la decisión de asignar <code>Total.Charges = 0</code> a esos 11 registros. Es una decisión basada en el significado de la variable y en el patrón observado, que se documenta aquí para que el procesamiento sea reproducible; no debe interpretarse como un valor observado originalmente en el archivo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>datos_telco <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total.Charges =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Total.Charges) <span class="sc">&amp;</span> Tenure.Months <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, Total.Charges))</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificamos que ya no quedan NAs en todo el dataset</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Total de NAs tras la imputación:"</span>, <span class="fu">sum</span>(<span class="fu">is.na</span>(datos_telco)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>datos_telco <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total.Charges =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Total.Charges) <span class="sc">&amp;</span> Tenure.Months <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, Total.Charges))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Valores ausentes restantes en Total.Charges:"</span>, <span class="fu">sum</span>(<span class="fu">is.na</span>(datos_telco<span class="sc">$</span>Total.Charges)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total de NAs tras la imputación: 0 </code></pre>
+<pre><code>Valores ausentes restantes en Total.Charges: 0 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Valores ausentes en Churn.Reason:"</span>, <span class="fu">sum</span>(<span class="fu">is.na</span>(datos_telco<span class="sc">$</span>Churn.Reason)), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Valores ausentes en Churn.Reason: 5174 </code></pre>
 </div>
 </div>
-<p><strong>Problema encontrado 2 (Cadenas vacías y variables constantes):</strong><br>
-Comprobamos también que las variables <code>Count</code> (siempre <code>1</code>), <code>Country</code> (<em>United States</em>) y <code>State</code> (<em>California</em>) son constantes en toda la muestra, por lo que no aportan capacidad discriminante. Asimismo, en <code>Churn.Reason</code>, los clientes activos (<code>Churn.Label == "No"</code>) presentan una cadena vacía <code>""</code>, lo cual es coherente por diseño (solo quien se da de baja declara un motivo de baja).</p>
-<p><strong>Comprobación de datos atípicos (<em>Outliers</em>) y resumen numérico general:</strong><br>
-Calculamos un resumen descriptivo completo de las tres variables cuantitativas principales (<code>Tenure.Months</code>, <code>Monthly.Charges</code>, <code>Total.Charges</code>), incluyendo medidas de centralidad, posición, dispersión y los límites teóricos de Tukey (<span class="math inline">\(Q_1 - 1.5 \times IQR\)</span> y <span class="math inline">\(Q_3 + 1.5 \times IQR\)</span>) para detectar posibles valores atípicos.</p>
+<p>Los valores ausentes en <code>Churn.Reason</code> corresponden a los clientes que permanecen activos. Por tanto, no se imputan: no existe un motivo de baja que registrar en esos casos. También se comprueba que <code>Count</code>, <code>Country</code> y <code>State</code> son constantes en el conjunto y, por tanto, no permiten distinguir entre clientes.</p>
+<p>Se calcula después un resumen de las variables cuantitativas principales y el número de valores fuera de los límites habituales de Tukey (1,5 veces el rango intercuartílico). La detección de un valor atípico es una señal para revisar un dato, no prueba automática de error.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resumen_numerico <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Tenure.Months, Monthly.Charges, Total.Charges) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"Variable"</span>, <span class="at">values_to =</span> <span class="st">"Valor"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Variable) <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min =</span> <span class="fu">min</span>(Valor),</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.25</span>),</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediana =</span> <span class="fu">median</span>(Valor),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(Valor),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.75</span>),</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max =</span> <span class="fu">max</span>(Valor),</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Valor),</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Valor),</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">CV_porc =</span> (<span class="fu">sd</span>(Valor) <span class="sc">/</span> <span class="fu">mean</span>(Valor)) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Lim_Inf_Outlier =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.25</span>) <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="fu">IQR</span>(Valor),</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Lim_Sup_Outlier =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="fu">IQR</span>(Valor),</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_Outliers =</span> <span class="fu">sum</span>(Valor <span class="sc">&lt;</span> (<span class="fu">quantile</span>(Valor, <span class="fl">0.25</span>) <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="fu">IQR</span>(Valor)) <span class="sc">|</span> </span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                     Valor <span class="sc">&gt;</span> (<span class="fu">quantile</span>(Valor, <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="fu">IQR</span>(Valor)))</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(resumen_numerico, <span class="at">digits =</span> <span class="dv">2</span>, </span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Resumen estadístico completo y detección de atípicos (criterio 1.5*IQR)"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>resumen_numerico <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Tenure.Months, Monthly.Charges, Total.Charges) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"Variable"</span>, <span class="at">values_to =</span> <span class="st">"Valor"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Variable) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(Valor)),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Min =</span> <span class="fu">min</span>(Valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediana =</span> <span class="fu">median</span>(Valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(Valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Valor, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Max =</span> <span class="fu">max</span>(Valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">CV_porc =</span> <span class="dv">100</span> <span class="sc">*</span> SD <span class="sc">/</span> Media,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Lim_Inf =</span> Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Lim_Sup =</span> Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_Outliers =</span> <span class="fu">sum</span>(Valor <span class="sc">&lt;</span> Lim_Inf <span class="sc">|</span> Valor <span class="sc">&gt;</span> Lim_Sup, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(resumen_numerico, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Resumen descriptivo y detección de posibles valores atípicos"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Resumen estadístico completo y detección de atípicos (criterio 1.5*IQR)</caption>
+<caption>Resumen descriptivo y detección de posibles valores atípicos</caption>
 <colgroup>
-<col style="width: 12%">
+<col style="width: 13%">
 <col style="width: 4%">
+<col style="width: 5%">
 <col style="width: 5%">
 <col style="width: 6%">
 <col style="width: 6%">
@@ -478,13 +553,14 @@ Calculamos un resumen descriptivo completo de las tres variables cuantitativas p
 <col style="width: 6%">
 <col style="width: 6%">
 <col style="width: 6%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Variable</th>
+<th style="text-align: right;">N</th>
 <th style="text-align: right;">Min</th>
 <th style="text-align: right;">Q1</th>
 <th style="text-align: right;">Mediana</th>
@@ -494,14 +570,15 @@ Calculamos un resumen descriptivo completo de las tres variables cuantitativas p
 <th style="text-align: right;">SD</th>
 <th style="text-align: right;">IQR</th>
 <th style="text-align: right;">CV_porc</th>
-<th style="text-align: right;">Lim_Inf_Outlier</th>
-<th style="text-align: right;">Lim_Sup_Outlier</th>
+<th style="text-align: right;">Lim_Inf</th>
+<th style="text-align: right;">Lim_Sup</th>
 <th style="text-align: right;">N_Outliers</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Monthly.Charges</td>
+<td style="text-align: right;">7043</td>
 <td style="text-align: right;">18.25</td>
 <td style="text-align: right;">35.50</td>
 <td style="text-align: right;">70.35</td>
@@ -517,6 +594,7 @@ Calculamos un resumen descriptivo completo de las tres variables cuantitativas p
 </tr>
 <tr class="even">
 <td style="text-align: left;">Tenure.Months</td>
+<td style="text-align: right;">7043</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">9.00</td>
 <td style="text-align: right;">29.00</td>
@@ -532,6 +610,7 @@ Calculamos un resumen descriptivo completo de las tres variables cuantitativas p
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Total.Charges</td>
+<td style="text-align: right;">7043</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">398.55</td>
 <td style="text-align: right;">1394.55</td>
@@ -549,51 +628,42 @@ Calculamos un resumen descriptivo completo de las tres variables cuantitativas p
 </table>
 </div>
 </div>
-<p><strong>Interpretación de la exploración numérica inicial:</strong> * <strong>Inexistencia de errores de medición u <em>outliers</em> extremos:</strong> Ninguna de las tres variables presenta observaciones fuera del intervalo <span class="math inline">\([Q_1 - 1.5 \times IQR, \; Q_3 + 1.5 \times IQR]\)</span> (<code>N_Outliers = 0</code>). La antigüedad oscila entre <strong>0 y 72 meses</strong> (máximo de 6 años registrados en el sistema), y los cargos mensuales se mueven en un rango comercial lógico entre <strong><span class="math inline">\(18,25\$\)</span> y <span class="math inline">\(118,75\$\)</span></strong>. * <strong>Dispersión y asimetría:</strong> * En <code>Monthly.Charges</code>, la mediana (<span class="math inline">\(70,35\$\)</span>) es superior a la media (<span class="math inline">\(64,76\$\)</span>), indicando una distribución asimétrica hacia la izquierda (acumulación de clientes en tarifas básicas de telefonía alrededor de <span class="math inline">\(20\$\)</span>). * <code>Total.Charges</code> presenta un <strong>Coeficiente de Variación (<span class="math inline">\(CV\)</span>) muy elevado del 99,83%</strong> (la desviación típica de <span class="math inline">\(2.266,77\$\)</span> es casi igual a su media de <span class="math inline">\(2.279,73\$\)</span>) y una fuerte asimetría positiva (media de <span class="math inline">\(2.279,73\$\)</span> frente a una mediana de <span class="math inline">\(1.394,55\$\)</span>). Esto ocurre porque <code>Total.Charges</code> es el producto acumulado de la antigüedad por la cuota mensual.</p>
+<p>En la muestra, la antigüedad varía entre 0 y 72 meses y los cargos mensuales entre 18,25 y 118,75 dólares. Aplicando la regla de Tukey a las tres variables descritas, no se identifican valores fuera de los límites calculados. Esto no garantiza que no existan otros tipos de errores; únicamente indica que esta regla no detecta observaciones atípicas en dichas variables.</p>
+<p>Como referencias descriptivas adicionales, el 43,96 % de los clientes tiene fibra óptica y el 83,79 % está clasificado como <code>Senior.Citizen = "No"</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Métricas descriptivas de composición de cartera</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>prop_fibra <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_telco<span class="sc">$</span>Internet.Service <span class="sc">==</span> <span class="st">"Fiber optic"</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>prop_no_senior <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_telco<span class="sc">$</span>Senior.Citizen <span class="sc">==</span> <span class="st">"No"</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>prop_senior_la <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_telco<span class="sc">$</span>City[datos_telco<span class="sc">$</span>Senior.Citizen <span class="sc">==</span> <span class="st">"Yes"</span>] <span class="sc">==</span> <span class="st">"Los Angeles"</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"- Clientes con Fibra Óptica: %d (%.2f%% de la cartera)</span><span class="sc">\n</span><span class="st">"</span>, </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sum</span>(datos_telco<span class="sc">$</span>Internet.Service <span class="sc">==</span> <span class="st">"Fiber optic"</span>), prop_fibra))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Clientes con fibra óptica: %d (%.2f%%)</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sum</span>(datos_telco<span class="sc">$</span>Internet.Service <span class="sc">==</span> <span class="st">"Fiber optic"</span>),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mean</span>(datos_telco<span class="sc">$</span>Internet.Service <span class="sc">==</span> <span class="st">"Fiber optic"</span>) <span class="sc">*</span> <span class="dv">100</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>- Clientes con Fibra Óptica: 3096 (43.96% de la cartera)</code></pre>
+<pre><code>Clientes con fibra óptica: 3096 (43.96%)</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"- Clientes menores de 65 años (No Senior): %.2f%% (Senior: %.2f%%)</span><span class="sc">\n</span><span class="st">"</span>, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>            prop_no_senior, <span class="dv">100</span> <span class="sc">-</span> prop_no_senior))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Clientes clasificados como Senior.Citizen = No: %.2f%%</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mean</span>(datos_telco<span class="sc">$</span>Senior.Citizen <span class="sc">==</span> <span class="st">"No"</span>) <span class="sc">*</span> <span class="dv">100</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>- Clientes menores de 65 años (No Senior): 83.79% (Senior: 16.21%)</code></pre>
+<pre><code>Clientes clasificados como Senior.Citizen = No: 83.79%</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"- Proporción de clientes Senior que residen en Los Ángeles: %.2f%%</span><span class="sc">\n</span><span class="st">"</span>, prop_senior_la))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Antigüedad máxima registrada:"</span>, <span class="fu">max</span>(datos_telco<span class="sc">$</span>Tenure.Months, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="st">"meses</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>- Proporción de clientes Senior que residen en Los Ángeles: 4.55%</code></pre>
+<pre><code>Antigüedad máxima registrada: 72 meses</code></pre>
 </div>
 </div>
-<hr>
 </section>
-<section id="pregunta-1-proporción-de-clientes-que-han-abandonado-la-compañía" class="level3">
-<h3 class="anchored" data-anchor-id="pregunta-1-proporción-de-clientes-que-han-abandonado-la-compañía">4.2. Pregunta 1: Proporción de clientes que han abandonado la compañía</h3>
-<p><strong>¿Por qué realizamos este análisis?</strong><br>
-Para cuantificar la tasa base de cancelación (<em>baseline churn rate</em>) en la muestra estudiada mediante una tabla de frecuencias absolutas y relativas y un diagrama de barras.</p>
+<section id="pregunta-1-proporción-global-de-abandono" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-1-proporción-global-de-abandono">4.3. Pregunta 1: proporción global de abandono</h3>
+<p>Se calcula la frecuencia absoluta y relativa de cada categoría de <code>Churn.Label</code> y se representa la distribución mediante un gráfico de barras.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tabla_churn <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Churn.Label, <span class="at">name =</span> <span class="st">"Frecuencia_Absoluta"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Frecuencia_Relativa =</span> Frecuencia_Absoluta <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia_Absoluta),</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia_Relativa <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_churn, <span class="at">caption =</span> <span class="st">"Tabla de frecuencias del abandono de clientes (Churn.Label)"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tabla_churn <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Churn.Label, <span class="at">name =</span> <span class="st">"Frecuencia"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia), <span class="dv">2</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_churn, <span class="at">caption =</span> <span class="st">"Frecuencia y porcentaje de abandono"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Tabla de frecuencias del abandono de clientes (Churn.Label)</caption>
+<caption>Frecuencia y porcentaje de abandono</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Churn.Label</th>
-<th style="text-align: right;">Frecuencia_Absoluta</th>
-<th style="text-align: right;">Frecuencia_Relativa</th>
+<th style="text-align: right;">Frecuencia</th>
 <th style="text-align: right;">Porcentaje</th>
 </tr>
 </thead>
@@ -601,32 +671,27 @@ Para cuantificar la tasa base de cancelación (<em>baseline churn rate</em>) en 
 <tr class="odd">
 <td style="text-align: left;">No</td>
 <td style="text-align: right;">5174</td>
-<td style="text-align: right;">0.7346301</td>
 <td style="text-align: right;">73.46</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Yes</td>
 <td style="text-align: right;">1869</td>
-<td style="text-align: right;">0.2653699</td>
 <td style="text-align: right;">26.54</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_churn, <span class="fu">aes</span>(<span class="at">x =</span> Churn.Label, <span class="at">y =</span> Frecuencia_Absoluta, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.55</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(Frecuencia_Absoluta, <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, Porcentaje, <span class="st">"%)"</span>)), </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">3.8</span>) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>)) <span class="sc">+</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">6000</span>) <span class="sc">+</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución del Abandono de Clientes (Churn)"</span>,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Muestra total: n = 7.043 clientes en California"</span>,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"¿El cliente ha abandonado la compañía?"</span>,</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Número de clientes (Frecuencia absoluta)"</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_churn, <span class="fu">aes</span>(<span class="at">x =</span> Churn.Label, <span class="at">y =</span> Frecuencia, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">" ("</span>, Porcentaje, <span class="st">"%)"</span>)),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">3.8</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>)) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">6000</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribución del abandono de clientes"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"n = 7.043 clientes"</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"¿Ha abandonado la compañía?"</span>, <span class="at">y =</span> <span class="st">"Número de clientes"</span>) <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -635,34 +700,49 @@ Para cuantificar la tasa base de cancelación (<em>baseline churn rate</em>) en 
 </div>
 </div>
 </div>
-<p><strong>Evidencia obtenida:</strong><br>
-* De los 7.043 clientes registrados, <strong>5.174 clientes (73,46%)</strong> permanecen activos (<code>No</code>), mientras que <strong>1.869 clientes (26,54%)</strong> han causado baja (<code>Yes</code>). * Desde una perspectiva de negocio, una pérdida trimestral superior a una cuarta parte de la cartera (<span class="math inline">\(26,54\%\)</span>) representa una sangría crítica de ingresos recurrentes, confirmando la necesidad de identificar qué segmentos concentran esta fuga.</p>
-<hr>
+<p><strong>Interpretación.</strong> De los 7.043 clientes, 1.869 presentan <code>Churn.Label = "Yes"</code> (26,54 %) y 5.174 permanecen activos (73,46 %). Algo más de una cuarta parte de la muestra tiene registrada una baja. Este resultado cuantifica la magnitud del abandono, pero no identifica por sí solo los factores asociados con él.</p>
 </section>
 <section id="pregunta-2-abandono-según-el-tipo-de-contrato" class="level3">
-<h3 class="anchored" data-anchor-id="pregunta-2-abandono-según-el-tipo-de-contrato">4.3. Pregunta 2: Abandono según el tipo de contrato</h3>
-<p><strong>¿Por qué realizamos este análisis?</strong><br>
-La variable ordinal <code>Contract</code> refleja las barreras de salida formales del cliente. Construimos una tabla de contingencia con frecuencias relativas condicionadas por fila (<code>margin = 1</code>) y un diagrama de barras apiladas al 100% (<code>position = "fill"</code>). Elegimos barras normalizadas al 100% porque el tamaño total de cada grupo contractual es distinto y nos interesa comparar el <strong>riesgo relativo de baja</strong> dentro de cada modalidad.</p>
+<h3 class="anchored" data-anchor-id="pregunta-2-abandono-según-el-tipo-de-contrato">4.4. Pregunta 2: abandono según el tipo de contrato</h3>
+<p>Se comparan las proporciones de abandono dentro de cada modalidad contractual. Se usan porcentajes por fila, porque los grupos de clientes tienen tamaños diferentes.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenamos los niveles de la variable ordinal Contract de menor a mayor permanencia</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>datos_telco<span class="sc">$</span>Contract <span class="ot">&lt;-</span> <span class="fu">factor</span>(datos_telco<span class="sc">$</span>Contract, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Month-to-month"</span>, <span class="st">"One year"</span>, <span class="st">"Two year"</span>))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>tabla_contrato <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Contrato =</span> datos_telco<span class="sc">$</span>Contract, <span class="at">Abandono =</span> datos_telco<span class="sc">$</span>Churn.Label)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>prop_contrato <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(tabla_contrato, <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">cbind</span>(tabla_contrato, prop_contrato), </span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Contingencia: Frecuencias absolutas y porcentajes por fila según Contrato"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>datos_telco<span class="sc">$</span>Contract <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  datos_telco<span class="sc">$</span>Contract,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Month-to-month"</span>, <span class="st">"One year"</span>, <span class="st">"Two year"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>tabla_contrato <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Contrato =</span> datos_telco<span class="sc">$</span>Contract, <span class="at">Abandono =</span> datos_telco<span class="sc">$</span>Churn.Label)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>porcentaje_contrato <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(tabla_contrato, <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>tabla_contrato_final <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Contrato =</span> <span class="fu">rownames</span>(tabla_contrato),</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">No_n =</span> <span class="fu">as.integer</span>(tabla_contrato[, <span class="st">"No"</span>]),</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">Yes_n =</span> <span class="fu">as.integer</span>(tabla_contrato[, <span class="st">"Yes"</span>]),</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">No_pct =</span> <span class="fu">as.numeric</span>(porcentaje_contrato[, <span class="st">"No"</span>]),</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Yes_pct =</span> <span class="fu">as.numeric</span>(porcentaje_contrato[, <span class="st">"Yes"</span>])</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_contrato_final, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Contrato"</span>, <span class="st">"Permanece (n)"</span>, <span class="st">"Abandona (n)"</span>,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Permanece (%)"</span>, <span class="st">"Abandona (%)"</span>),</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Frecuencias y porcentajes según tipo de contrato"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Contingencia: Frecuencias absolutas y porcentajes por fila según Contrato</caption>
+<caption>Frecuencias y porcentajes según tipo de contrato</caption>
+<colgroup>
+<col style="width: 21%">
+<col style="width: 20%">
+<col style="width: 18%">
+<col style="width: 20%">
+<col style="width: 18%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">No</th>
-<th style="text-align: right;">Yes</th>
-<th style="text-align: right;">No</th>
-<th style="text-align: right;">Yes</th>
+<th style="text-align: left;">Contrato</th>
+<th style="text-align: right;">Permanece (n)</th>
+<th style="text-align: right;">Abandona (n)</th>
+<th style="text-align: right;">Permanece (%)</th>
+<th style="text-align: right;">Abandona (%)</th>
 </tr>
 </thead>
 <tbody>
@@ -690,19 +770,14 @@ La variable ordinal <code>Contract</code> refleja las barreras de salida formale
 </tbody>
 </table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Contract, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>), </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Permanece (No)"</span>, <span class="st">"Abandona (Yes)"</span>)) <span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Proporción de Abandono según Modalidad de Contrato"</span>,</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Frecuencias relativas condicionadas al tipo de contrato"</span>,</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tipo de Contrato (Escala Ordinal)"</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Porcentaje de clientes"</span>,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Estado del cliente"</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Contract, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">width =</span> <span class="fl">0.65</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Permanece"</span>, <span class="st">"Abandona"</span>)) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Proporción de abandono según el tipo de contrato"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Tipo de contrato"</span>, <span class="at">y =</span> <span class="st">"Porcentaje de clientes"</span>, <span class="at">fill =</span> <span class="st">"Estado"</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -711,44 +786,40 @@ La variable ordinal <code>Contract</code> refleja las barreras de salida formale
 </div>
 </div>
 </div>
-<p><strong>Evidencia obtenida:</strong><br>
-* Se observa una relación monótona decreciente sumamente pronunciada entre el compromiso contractual y el abandono: * <strong>Contrato mes a mes (<em>Month-to-month</em>):</strong> Concentra una tasa de abandono del <strong>42,71%</strong> (<span class="math inline">\(1.655\)</span> bajas sobre <span class="math inline">\(3.875\)</span> clientes en esta modalidad). De hecho, el <strong><span class="math inline">\(88,55\%\)</span> de todas las bajas de la empresa</strong> (<span class="math inline">\(1.655 / 1.869\)</span>) provienen de contratos mensuales. * <strong>Contrato de un año (<em>One year</em>):</strong> La tasa de abandono se desploma casi cuatro veces, situándose en el <strong>11,27%</strong> (<span class="math inline">\(166\)</span> bajas). * <strong>Contrato de dos años (<em>Two year</em>):</strong> Presenta una fidelidad casi total, con apenas un <strong>2,83%</strong> de bajas (<span class="math inline">\(48\)</span> casos).</p>
-<hr>
+<p><strong>Interpretación.</strong> La proporción de abandono es del 42,71 % para los contratos mensuales (1.655 de 3.875 clientes), del 11,27 % para los contratos de un año (166 de 1.473) y del 2,83 % para los contratos de dos años (48 de 1.695). En esta muestra, el abandono es mucho más frecuente en el grupo con contratos mensuales. Se trata de una asociación descriptiva; el análisis no demuestra que el contrato sea por sí solo la causa de la baja.</p>
 </section>
-<section id="pregunta-3-diferencias-en-la-antigüedad-tenure.months-según-abandono" class="level3">
-<h3 class="anchored" data-anchor-id="pregunta-3-diferencias-en-la-antigüedad-tenure.months-según-abandono">4.4. Pregunta 3: Diferencias en la antigüedad (<code>Tenure.Months</code>) según abandono</h3>
-<p><strong>¿Por qué realizamos este análisis?</strong><br>
-Queremos contrastar si la baja es un fenómeno de desgaste a largo plazo o un fallo de retención temprana (<em>onboarding</em>). Comparamos las medidas de tendencia central, posición y dispersión de <code>Tenure.Months</code> en ambos grupos y visualizamos su distribución con un diagrama de caja y bigotes (<em>boxplot</em>) combinado con la media muestral.</p>
+<section id="pregunta-3-diferencias-en-la-antigüedad-según-el-abandono" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-3-diferencias-en-la-antigüedad-según-el-abandono">4.5. Pregunta 3: diferencias en la antigüedad según el abandono</h3>
+<p>Se comparan la media, la mediana, los cuartiles y la dispersión de la antigüedad en ambos grupos. El diagrama de caja permite observar las distribuciones y la posible presencia de valores extremos dentro de cada grupo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tabla_antiguedad <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Churn.Label) <span class="sc">%&gt;%</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(Tenure.Months),</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Tenure.Months),</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Tenure.Months, <span class="fl">0.25</span>),</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediana =</span> <span class="fu">median</span>(Tenure.Months),</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Tenure.Months, <span class="fl">0.75</span>),</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Tenure.Months),</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">CV_porc =</span> (<span class="fu">sd</span>(Tenure.Months) <span class="sc">/</span> <span class="fu">mean</span>(Tenure.Months)) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_antiguedad, <span class="at">digits =</span> <span class="dv">2</span>, </span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Estadísticos descriptivos de Antigüedad (meses) según Abandono"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tabla_antiguedad <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Churn.Label) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(Tenure.Months, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Tenure.Months, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Tenure.Months, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediana =</span> <span class="fu">median</span>(Tenure.Months, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Tenure.Months, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Tenure.Months, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_antiguedad, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Estadísticos descriptivos de antigüedad (meses) según abandono"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Estadísticos descriptivos de Antigüedad (meses) según Abandono</caption>
+<caption>Estadísticos descriptivos de antigüedad (meses) según abandono</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Churn.Label</th>
-<th style="text-align: right;">n</th>
+<th style="text-align: right;">N</th>
 <th style="text-align: right;">Media</th>
 <th style="text-align: right;">SD</th>
 <th style="text-align: right;">Q1</th>
 <th style="text-align: right;">Mediana</th>
 <th style="text-align: right;">Q3</th>
 <th style="text-align: right;">IQR</th>
-<th style="text-align: right;">CV_porc</th>
 </tr>
 </thead>
 <tbody>
@@ -761,7 +832,6 @@ Queremos contrastar si la baja es un fenómeno de desgaste a largo plazo o un fa
 <td style="text-align: right;">38</td>
 <td style="text-align: right;">61</td>
 <td style="text-align: right;">46</td>
-<td style="text-align: right;">64.18</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Yes</td>
@@ -772,23 +842,20 @@ Queremos contrastar si la baja es un fenómeno de desgaste a largo plazo o un fa
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">29</td>
 <td style="text-align: right;">27</td>
-<td style="text-align: right;">108.63</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Churn.Label, <span class="at">y =</span> Tenure.Months, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.45</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">outlier.color =</span> <span class="st">"black"</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">shape =</span> <span class="dv">23</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>)) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Antigüedad (Tenure) según Abandono"</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"El rombo blanco indica la media muestral; la línea central indica la mediana"</span>,</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"¿Ha abandonado la compañía?"</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Antigüedad (Meses)"</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Churn.Label, <span class="at">y =</span> Tenure.Months, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">outlier.size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">"point"</span>, <span class="at">shape =</span> <span class="dv">23</span>, <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>)) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Antigüedad según situación de abandono"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"El rombo blanco representa la media y la línea central, la mediana"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"¿Ha abandonado la compañía?"</span>, <span class="at">y =</span> <span class="st">"Antigüedad (meses)"</span>) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -797,44 +864,40 @@ Queremos contrastar si la baja es un fenómeno de desgaste a largo plazo o un fa
 </div>
 </div>
 </div>
-<p><strong>Evidencia obtenida:</strong><br>
-* <strong>Diferencia drástica de centralidad y asimetría:</strong> Los clientes que permanecen (<code>No</code>) presentan una distribución casi simétrica con una <strong>media de 37,57 meses</strong> y una <strong>mediana de 38 meses</strong> (<span class="math inline">\(IQR = 46\)</span> meses). En cambio, los clientes que abandonan (<code>Yes</code>) tienen una <strong>media de 17,98 meses</strong> y una <strong>mediana de tan solo 10 meses</strong> (<span class="math inline">\(Q_1 = 2\)</span> meses, <span class="math inline">\(Q_3 = 29\)</span> meses). * <strong>Importancia de usar la mediana y aparición de atípicos grupales:</strong> En el grupo <code>Yes</code>, la distribución presenta una fuerte asimetría positiva (<span class="math inline">\(Media = 17,98 &gt; Mediana = 10\)</span>) y un coeficiente de variación altísimo (<span class="math inline">\(CV = 108,64\%\)</span>). Además, el <em>boxplot</em> del grupo <code>Yes</code> revela observaciones atípicas en la cola superior (clientes que se dan de baja llevando casi 70 meses), las cuales tiran de la media hacia arriba. Por ello, <strong>la mediana (10 meses) es un estadístico mucho más representativo</strong> del cliente típico que abandona: <strong>el 25% de las bajas ocurren en los primeros 2 meses y el 50% antes de cumplir los 10 meses</strong>.</p>
-<hr>
+<p><strong>Interpretación.</strong> Los clientes que permanecen presentan una antigüedad media de 37,57 meses y una mediana de 38 meses. En los clientes que abandonaron, la media es de 17,98 meses y la mediana de 10 meses; el primer y tercer cuartil son 2 y 29 meses, respectivamente. La mediana indica que la mitad de los clientes que abandonaron llevaba 10 meses o menos en la compañía. Esto sugiere que conviene estudiar con detalle la experiencia de los clientes durante los primeros meses, aunque estos datos no estiman por sí solos el riesgo causal de abandono en cada etapa.</p>
 </section>
-<section id="pregunta-4-diferencias-en-los-cargos-mensuales-monthly.charges" class="level3">
-<h3 class="anchored" data-anchor-id="pregunta-4-diferencias-en-los-cargos-mensuales-monthly.charges">4.5. Pregunta 4: Diferencias en los cargos mensuales (<code>Monthly.Charges</code>)</h3>
-<p><strong>¿Por qué realizamos este análisis?</strong><br>
-Analizamos cómo influye la factura mensual en la decisión de baja. Dado que en la exploración inicial vimos que <code>Monthly.Charges</code> no sigue una campana simétrica unimodal, utilizamos un gráfico de densidad superpuesto acompañado de estadísticos de centralidad y dispersión por grupo.</p>
+<section id="pregunta-4-diferencias-en-los-cargos-mensuales" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-4-diferencias-en-los-cargos-mensuales">4.6. Pregunta 4: diferencias en los cargos mensuales</h3>
+<p>Se comparan los cargos mensuales de clientes activos y clientes que abandonaron mediante medidas descriptivas y una curva de densidad. Las curvas ayudan a visualizar la forma de las distribuciones, pero no demuestran el motivo de las diferencias.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tabla_cargos <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Churn.Label) <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(Monthly.Charges),</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Monthly.Charges),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Monthly.Charges, <span class="fl">0.25</span>),</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediana =</span> <span class="fu">median</span>(Monthly.Charges),</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Monthly.Charges, <span class="fl">0.75</span>),</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Monthly.Charges),</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">CV_porc =</span> (<span class="fu">sd</span>(Monthly.Charges) <span class="sc">/</span> <span class="fu">mean</span>(Monthly.Charges)) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_cargos, <span class="at">digits =</span> <span class="dv">2</span>, </span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Estadísticos descriptivos de Cargos Mensuales ($) según Abandono"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tabla_cargos <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Churn.Label) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>(),</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(Monthly.Charges, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(Monthly.Charges, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(Monthly.Charges, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediana =</span> <span class="fu">median</span>(Monthly.Charges, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(Monthly.Charges, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(Monthly.Charges, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_cargos, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Estadísticos descriptivos de cargos mensuales (USD) según abandono"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Estadísticos descriptivos de Cargos Mensuales ($) según Abandono</caption>
+<caption>Estadísticos descriptivos de cargos mensuales (USD) según abandono</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Churn.Label</th>
-<th style="text-align: right;">n</th>
+<th style="text-align: right;">N</th>
 <th style="text-align: right;">Media</th>
 <th style="text-align: right;">SD</th>
 <th style="text-align: right;">Q1</th>
 <th style="text-align: right;">Mediana</th>
 <th style="text-align: right;">Q3</th>
 <th style="text-align: right;">IQR</th>
-<th style="text-align: right;">CV_porc</th>
 </tr>
 </thead>
 <tbody>
@@ -847,7 +910,6 @@ Analizamos cómo influye la factura mensual en la decisión de baja. Dado que en
 <td style="text-align: right;">64.43</td>
 <td style="text-align: right;">88.4</td>
 <td style="text-align: right;">63.30</td>
-<td style="text-align: right;">50.75</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Yes</td>
@@ -858,26 +920,22 @@ Analizamos cómo influye la factura mensual en la decisión de baja. Dado que en
 <td style="text-align: right;">79.65</td>
 <td style="text-align: right;">94.2</td>
 <td style="text-align: right;">38.05</td>
-<td style="text-align: right;">33.13</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Monthly.Charges, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.55</span>) <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> tabla_cargos, <span class="fu">aes</span>(<span class="at">xintercept =</span> Mediana, <span class="at">color =</span> Churn.Label),</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>),</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Permanece (No)"</span>, <span class="st">"Abandona (Yes)"</span>)) <span class="sc">+</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#1b3b5c"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#a93226"</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Densidad de Cargos Mensuales según Estado de Abandono"</span>,</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Las líneas verticales discontinuas representan la mediana de cada grupo"</span>,</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Cargo Mensual ($)"</span>,</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Densidad"</span>,</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Estado del cliente"</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Monthly.Charges, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> tabla_cargos,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">xintercept =</span> Mediana, <span class="at">color =</span> Churn.Label),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>),</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Permanece"</span>, <span class="st">"Abandona"</span>)) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#1b3b5c"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#a93226"</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribución de los cargos mensuales según abandono"</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Las líneas discontinuas indican la mediana de cada grupo"</span>,</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Cargo mensual (USD)"</span>, <span class="at">y =</span> <span class="st">"Densidad"</span>, <span class="at">fill =</span> <span class="st">"Estado"</span>) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -886,30 +944,38 @@ Analizamos cómo influye la factura mensual en la decisión de baja. Dado que en
 </div>
 </div>
 </div>
-<p><strong>Evidencia obtenida:</strong><br>
-* Los clientes que abandonan (<code>Yes</code>) afrontan cuotas mensuales significativamente superiores y menos dispersas: tienen una <strong>media de <span class="math inline">\(74,44\$\)</span></strong> y una <strong>mediana de <span class="math inline">\(79,65\$\)</span></strong> (<span class="math inline">\(Q_1 = 56,15\$\)</span>, <span class="math inline">\(Q_3 = 94,20\$\)</span>, <span class="math inline">\(SD = 24,67\$\)</span>). * Los clientes que permanecen (<code>No</code>) pagan una <strong>media de <span class="math inline">\(61,27\$\)</span></strong> y una <strong>mediana de <span class="math inline">\(64,43\$\)</span></strong>, con una mayor dispersión (<span class="math inline">\(SD = 31,09\$\)</span>, <span class="math inline">\(IQR = 63,30\$\)</span>). * <strong>Hallazgo visual clave (bimodalidad):</strong> La curva de densidad explica por qué la desviación típica es mayor en los clientes fieles: el grupo <code>No</code> es claramente <strong>bimodal</strong>, con un enorme pico de clientes muy estables que pagan alrededor de <strong><span class="math inline">\(20\$\)</span> al mes</strong> (tarifas básicas solo de voz) y otro bloque entre <span class="math inline">\(50\$\)</span> y <span class="math inline">\(90\$\)</span>. Por el contrario, la masa de probabilidad de quienes abandonan (<code>Yes</code>) se concentra masivamente en la franja alta de precios, entre <strong><span class="math inline">\(70\$\)</span> y <span class="math inline">\(105\$\)</span> mensuales</strong>.</p>
-<hr>
+<p><strong>Interpretación.</strong> Los clientes que permanecen presentan cargos mensuales medios de 61,27 USD y una mediana de 64,43 USD. Entre quienes abandonaron, la media es de 74,44 USD y la mediana de 79,65 USD. Por tanto, los cargos son descriptivamente mayores en el grupo que abandonó. La distribución de los clientes activos muestra una concentración en importes bajos y otra en importes superiores, mientras que los valores del grupo que abandonó se concentran más en la zona de cargos altos. No puede afirmarse a partir de este gráfico que una cuota alta sea la causa de la baja; pueden intervenir el contrato y los servicios contratados.</p>
 </section>
 <section id="pregunta-5-abandono-según-el-servicio-de-internet" class="level3">
-<h3 class="anchored" data-anchor-id="pregunta-5-abandono-según-el-servicio-de-internet">4.6. Pregunta 5: Abandono según el servicio de Internet</h3>
-<p><strong>¿Por qué realizamos este análisis?</strong><br>
-Evaluamos si la tasa de cancelación depende del tipo de conexión a Internet contratada (<code>DSL</code>, <code>Fiber optic</code>, <code>No</code>).</p>
+<h3 class="anchored" data-anchor-id="pregunta-5-abandono-según-el-servicio-de-internet">4.7. Pregunta 5: abandono según el servicio de Internet</h3>
+<p>Se comparan las proporciones de abandono entre clientes con DSL, fibra óptica y sin servicio de Internet.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tabla_internet <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Servicio =</span> datos_telco<span class="sc">$</span>Internet.Service, <span class="at">Abandono =</span> datos_telco<span class="sc">$</span>Churn.Label)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>prop_internet <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(tabla_internet, <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">cbind</span>(tabla_internet, prop_internet), </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Contingencia: Frecuencias absolutas y porcentajes por fila según Servicio de Internet"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>tabla_internet <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Servicio =</span> datos_telco<span class="sc">$</span>Internet.Service,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Abandono =</span> datos_telco<span class="sc">$</span>Churn.Label)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>porcentaje_internet <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(tabla_internet, <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>tabla_internet_final <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Servicio =</span> <span class="fu">rownames</span>(tabla_internet),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">No_n =</span> <span class="fu">as.integer</span>(tabla_internet[, <span class="st">"No"</span>]),</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Yes_n =</span> <span class="fu">as.integer</span>(tabla_internet[, <span class="st">"Yes"</span>]),</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">No_pct =</span> <span class="fu">as.numeric</span>(porcentaje_internet[, <span class="st">"No"</span>]),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Yes_pct =</span> <span class="fu">as.numeric</span>(porcentaje_internet[, <span class="st">"Yes"</span>])</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_internet_final, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Servicio"</span>, <span class="st">"Permanece (n)"</span>, <span class="st">"Abandona (n)"</span>,</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Permanece (%)"</span>, <span class="st">"Abandona (%)"</span>),</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Frecuencias y porcentajes según servicio de Internet"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Contingencia: Frecuencias absolutas y porcentajes por fila según Servicio de Internet</caption>
+<caption>Frecuencias y porcentajes según servicio de Internet</caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">No</th>
-<th style="text-align: right;">Yes</th>
-<th style="text-align: right;">No</th>
-<th style="text-align: right;">Yes</th>
+<th style="text-align: left;">Servicio</th>
+<th style="text-align: right;">Permanece (n)</th>
+<th style="text-align: right;">Abandona (n)</th>
+<th style="text-align: right;">Permanece (%)</th>
+<th style="text-align: right;">Abandona (%)</th>
 </tr>
 </thead>
 <tbody>
@@ -937,19 +1003,14 @@ Evaluamos si la tasa de cancelación depende del tipo de conexión a Internet co
 </tbody>
 </table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Internet.Service, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>),</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Permanece (No)"</span>, <span class="st">"Abandona (Yes)"</span>)) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Proporción de Abandono por Tipo de Servicio de Internet"</span>,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Porcentaje condicionado a cada tecnología contratada"</span>,</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Servicio de Internet"</span>,</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Porcentaje de clientes"</span>,</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Estado del cliente"</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_telco, <span class="fu">aes</span>(<span class="at">x =</span> Internet.Service, <span class="at">fill =</span> Churn.Label)) <span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">width =</span> <span class="fl">0.65</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#2b5c8f"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Permanece"</span>, <span class="st">"Abandona"</span>)) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Proporción de abandono según servicio de Internet"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Servicio de Internet"</span>, <span class="at">y =</span> <span class="st">"Porcentaje de clientes"</span>, <span class="at">fill =</span> <span class="st">"Estado"</span>) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -958,9 +1019,299 @@ Evaluamos si la tasa de cancelación depende del tipo de conexión a Internet co
 </div>
 </div>
 </div>
-<p><strong>Evidencia obtenida:</strong><br>
-* El resultado es revelador y contraintuitivo a primera vista: la <strong>Fibra Óptica (<em>Fiber optic</em>)</strong>, pese a ser la tecnología de mayor velocidad, sufre una tasa de abandono alarmante del <strong>41,89%</strong> (<span class="math inline">\(1.297\)</span> bajas de <span class="math inline">\(3.096\)</span> usuarios). * Los clientes con tecnología <strong>DSL</strong> presentan una tasa de baja de menos de la mitad (**18,9</p>
+<p><strong>Interpretación.</strong> La proporción de abandono es del 41,89 % entre clientes con fibra óptica (1.297 de 3.096), del 18,96 % en clientes con DSL (459 de 2.421) y del 7,40 % entre quienes no tienen servicio de Internet (113 de 1.526). La fibra óptica presenta la mayor proporción de bajas en esta muestra. Este patrón descriptivo no demuestra que la tecnología sea la causa de las bajas; para contextualizarlo se explora a continuación su combinación con el tipo de contrato.</p>
 </section>
+<section id="pregunta-6-interacción-entre-servicio-de-internet-y-tipo-de-contrato" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-6-interacción-entre-servicio-de-internet-y-tipo-de-contrato">4.8. Pregunta 6: interacción entre servicio de Internet y tipo de contrato</h3>
+<p>Para profundizar en la comparación anterior, se calcula la proporción de abandono para cada combinación de servicio de Internet y contrato. De este modo se comprueba si el patrón observado aparece dentro de las modalidades contractuales.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>tabla_interaccion <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Internet.Service, Contract) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Clientes =</span> <span class="fu">n</span>(),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Bajas =</span> <span class="fu">sum</span>(Churn.Label <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Porcentaje_bajas =</span> <span class="dv">100</span> <span class="sc">*</span> <span class="fu">mean</span>(Churn.Label <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(tabla_interaccion, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Abandono por combinación de servicio de Internet y contrato"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Abandono por combinación de servicio de Internet y contrato</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Internet.Service</th>
+<th style="text-align: left;">Contract</th>
+<th style="text-align: right;">Clientes</th>
+<th style="text-align: right;">Bajas</th>
+<th style="text-align: right;">Porcentaje_bajas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DSL</td>
+<td style="text-align: left;">Month-to-month</td>
+<td style="text-align: right;">1223</td>
+<td style="text-align: right;">394</td>
+<td style="text-align: right;">32.22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DSL</td>
+<td style="text-align: left;">One year</td>
+<td style="text-align: right;">570</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">9.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DSL</td>
+<td style="text-align: left;">Two year</td>
+<td style="text-align: right;">628</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1.91</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fiber optic</td>
+<td style="text-align: left;">Month-to-month</td>
+<td style="text-align: right;">2128</td>
+<td style="text-align: right;">1162</td>
+<td style="text-align: right;">54.61</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fiber optic</td>
+<td style="text-align: left;">One year</td>
+<td style="text-align: right;">539</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: right;">19.29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fiber optic</td>
+<td style="text-align: left;">Two year</td>
+<td style="text-align: right;">429</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">7.23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Month-to-month</td>
+<td style="text-align: right;">524</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">18.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">One year</td>
+<td style="text-align: right;">364</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2.47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Two year</td>
+<td style="text-align: right;">638</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_interaccion,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Contract, <span class="at">y =</span> Porcentaje_bajas, <span class="at">fill =</span> Internet.Service)) <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.8</span>), <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(<span class="at">scale =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"#8c8c8c"</span>, <span class="st">"DSL"</span> <span class="ot">=</span> <span class="st">"#2b8cbe"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Fiber optic"</span> <span class="ot">=</span> <span class="st">"#d9534f"</span>)) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Abandono según contrato y servicio de Internet"</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Tipo de contrato"</span>, <span class="at">y =</span> <span class="st">"Clientes que abandonaron (%)"</span>,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Servicio de Internet"</span>) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="documento_files/figure-html/interaccion-internet-contrato-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación.</strong> La proporción de abandono es más alta en los contratos mensuales en los tres grupos de Internet. Por ejemplo, entre los clientes con fibra óptica, la proporción es del 54,61 % con contrato mensual, del 19,29 % con contrato de un año y del 7,23 % con contrato de dos años. El patrón sugiere que el tipo de contrato ayuda a contextualizar las diferencias observadas entre servicios. No obstante, la comparación sigue siendo descriptiva y no controla simultáneamente todas las características de los clientes.</p>
+</section>
+<section id="pregunta-7-motivos-de-abandono-más-frecuentes" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-7-motivos-de-abandono-más-frecuentes">4.9. Pregunta 7: motivos de abandono más frecuentes</h3>
+<p>El motivo de abandono solo se analiza entre quienes tienen <code>Churn.Label = "Yes"</code>. Los valores ausentes en <code>Churn.Reason</code> para los clientes que permanecen activos no se incluyen en esta tabla porque no representan una baja sin motivo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>motivos_abandono <span class="ot">&lt;-</span> datos_telco <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Churn.Label <span class="sc">==</span> <span class="st">"Yes"</span>, <span class="sc">!</span><span class="fu">is.na</span>(Churn.Reason)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Churn.Reason, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(motivos_abandono, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Motivo registrado"</span>, <span class="st">"Número de clientes"</span>, <span class="st">"Porcentaje de las bajas"</span>),</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Motivos registrados entre los clientes que abandonaron"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Motivos registrados entre los clientes que abandonaron</caption>
+<colgroup>
+<col style="width: 49%">
+<col style="width: 22%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Motivo registrado</th>
+<th style="text-align: right;">Número de clientes</th>
+<th style="text-align: right;">Porcentaje de las bajas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Attitude of support person</td>
+<td style="text-align: right;">192</td>
+<td style="text-align: right;">10.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Competitor offered higher download speeds</td>
+<td style="text-align: right;">189</td>
+<td style="text-align: right;">10.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Competitor offered more data</td>
+<td style="text-align: right;">162</td>
+<td style="text-align: right;">8.67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Don’t know</td>
+<td style="text-align: right;">154</td>
+<td style="text-align: right;">8.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Competitor made better offer</td>
+<td style="text-align: right;">140</td>
+<td style="text-align: right;">7.49</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Attitude of service provider</td>
+<td style="text-align: right;">135</td>
+<td style="text-align: right;">7.22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Competitor had better devices</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">6.96</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Network reliability</td>
+<td style="text-align: right;">103</td>
+<td style="text-align: right;">5.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Product dissatisfaction</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">5.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Price too high</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">5.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Service dissatisfaction</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">4.76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lack of self-service on Website</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">4.71</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Extra data charges</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">3.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moved</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">2.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lack of affordable download/upload speed</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">2.35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Limited range of services</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">2.35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Long distance charges</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">2.35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Poor expertise of phone support</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1.07</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Poor expertise of online support</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">1.02</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Deceased</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.32</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>top_motivos <span class="ot">&lt;-</span> motivos_abandono <span class="sc">%&gt;%</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_motivos,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Churn.Reason, n), <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#2b5c8f"</span>, <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Diez motivos de abandono más frecuentes"</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Motivo registrado"</span>, <span class="at">y =</span> <span class="st">"Número de clientes"</span>) <span class="sc">+</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="documento_files/figure-html/motivos-abandono-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación.</strong> El motivo registrado más frecuente es la actitud del personal de soporte (192 casos), seguido de las ofertas de la competencia para obtener mayores velocidades de descarga (189), las ofertas de más datos (162), la categoría «Don’t know» (154) y las mejores ofertas de la competencia (140). Estos campos recogen los motivos registrados para las bajas; son respuestas declaradas y no una verificación independiente de la causa del abandono.</p>
+</section>
+</section>
+<section id="conclusiones-generales" class="level2">
+<h2 class="anchored" data-anchor-id="conclusiones-generales">5. Conclusiones generales</h2>
+<p>El análisis de los 7.043 registros identifica varios patrones descriptivos. En total, 1.869 clientes (26,54 %) presentan una baja registrada. La proporción de abandono difiere por tipo de contrato: es del 42,71 % en contratos mensuales, del 11,27 % en contratos de un año y del 2,83 % en contratos de dos años. También se observan diferencias de antigüedad: la mediana es de 10 meses para los clientes que abandonaron y de 38 meses para quienes permanecen. Los cargos mensuales medios son 74,44 USD en el grupo que abandonó y 61,27 USD en el grupo activo. Por servicio de Internet, la proporción de abandono es del 41,89 % en fibra óptica, del 18,96 % en DSL y del 7,40 % en clientes sin Internet.</p>
+<p>Al cruzar contrato y servicio de Internet, el abandono continúa siendo más frecuente en los contratos mensuales dentro de cada grupo. Entre los motivos registrados destacan la actitud del personal de soporte y las ofertas de la competencia. Estos hallazgos ayudan a formular preguntas para estudios posteriores sobre retención, pero no permiten atribuir causalidad a un solo factor.</p>
+</section>
+<section id="limitaciones-del-análisis" class="level2">
+<h2 class="anchored" data-anchor-id="limitaciones-del-análisis">6. Limitaciones del análisis</h2>
+<ul>
+<li>El trabajo es exploratorio y descriptivo. No se han realizado pruebas de hipótesis ni modelos multivariantes que permitan controlar simultáneamente otros factores; por tanto, las asociaciones observadas no deben interpretarse como efectos causales.</li>
+<li>La etiqueta de abandono, según la documentación de IBM, indica si el cliente dejó la compañía durante el último mes. No debe presentarse automáticamente como una tasa anual ni como el abandono de todo un trimestre.</li>
+<li>Los 11 valores ausentes de <code>Total.Charges</code> se han sustituido por cero porque corresponden a clientes con antigüedad cero meses. Es una decisión documentada, pero sigue siendo una imputación basada en el significado de los datos.</li>
+<li><code>Churn.Reason</code> está ausente para clientes activos, lo que es coherente con la definición de la variable. Además, los motivos proceden de los registros del conjunto de datos y pueden no describir todas las circunstancias de una baja.</li>
+<li>El conjunto representa una compañía ficticia en California; los resultados no pueden generalizarse automáticamente a otras empresas, regiones o periodos.</li>
+</ul>
+</section>
+<section id="uso-de-inteligencia-artificial" class="level2">
+<h2 class="anchored" data-anchor-id="uso-de-inteligencia-artificial">7. Uso de inteligencia artificial</h2>
+<p>Se ha utilizado ChatGPT como apoyo para organizar la estructura del informe, proponer y revisar fragmentos de código R y mejorar la redacción de las interpretaciones. El código y los resultados numéricos deben comprobarse mediante la ejecución del documento en RStudio/Quarto; el grupo debe revisar las salidas y confirmar que las explicaciones corresponden a los resultados obtenidos antes de entregar la práctica.</p>
+</section>
+<section id="referencias" class="level2">
+<h2 class="anchored" data-anchor-id="referencias">8. Referencias</h2>
+<ul>
+<li>IBM. (2019, 11 de julio). <em>Telco customer churn (11.1.3+).</em> IBM Community. https://community.ibm.com/community/user/blogs/steven-macko/2019/07/11/telco-customer-churn-1113</li>
+<li>IBM. (s. f.). <em>Telco customer churn</em>. IBM Cognos Analytics documentation. https://www.ibm.com/docs/en/cognos-analytics/12.1.x?topic=samples-telco-customer-churn</li>
+</ul>
+<p><strong>Nota sobre la descarga:</strong> si el CSV se obtuvo desde Kaggle u otro repositorio, añadid también la referencia y URL exactas de esa descarga. La referencia de IBM documenta el conjunto de datos y el significado de la etiqueta de abandono.</p>
 </section>
 
 </main>
