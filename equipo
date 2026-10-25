@@ -1,0 +1,17 @@
+ORGANIZACIÓN DEL GRUPO Y REPARTO DE TAREAS
+Práctica: Análisis Exploratorio de Datos (Telco Churn)
+Asignatura: Inferencia Estadística
+Curso: 2026/27
+
+Integrantes del grupo:
+1. Alejandro González
+2. Eduardo Vega López
+
+Metodología de trabajo:
+El grupo se ha organizado mediante reuniones periódicas (tanto presenciales como online) para consensuar el enfoque del Análisis Exploratorio de Datos (EDA) y definir las preguntas de partida. El desarrollo del código y la redacción se ha llevado a cabo de forma colaborativa compartiendo los archivos fuente y revisando el trabajo del otro para asegurar la coherencia del resultado final.
+
+Reparto de tareas:
+- Alejandro González: Búsqueda y selección del conjunto de datos (Telco Churn). Limpieza inicial, revisión de valores ausentes (NA) e imputación. Desarrollo del código R para las visualizaciones principales (ggplot2) y redacción del apartado de conclusiones generales en el documento HTML.
+- Eduardo Vega López: Estructuración del documento Quarto (.qmd). Desarrollo del análisis descriptivo bivariante (cruces de variables y tablas de frecuencias). Redacción e interpretación de los hallazgos en cada pregunta de investigación y diseño del resumen ejecutivo en formato PDF.
+
+* Nota: Ambos integrantes hemos participado activamente en la revisión final del código, la corrección de errores, la comprobación de la reproducibilidad y el empaquetado final de los archivos para la entrega.
