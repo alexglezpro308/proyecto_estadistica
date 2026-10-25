@@ -10,6 +10,7 @@ lang: es
 format:
   html:
     theme: flatly
+    embed-resources: true
     toc: true
     toc-depth: 3
     toc-title: "Índice de contenidos"
