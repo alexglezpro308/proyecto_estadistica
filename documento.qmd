@@ -477,11 +477,11 @@ Al cruzar contrato y servicio de Internet, el abandono continúa siendo más fre
 
 ## 7. Uso de inteligencia artificial
 
-Se ha utilizado ChatGPT como apoyo para organizar la estructura del informe, proponer y revisar fragmentos de código R y mejorar la redacción de las interpretaciones. El código y los resultados numéricos deben comprobarse mediante la ejecución del documento en RStudio/Quarto; el grupo debe revisar las salidas y confirmar que las explicaciones corresponden a los resultados obtenidos antes de entregar la práctica.
+Se ha utilizado ChatGPT y Gemini como apoyo para organizar la estructura del informe, proponer y revisar fragmentos de código R y mejorar la redacción de las interpretaciones. El código y los resultados numéricos deben comprobarse mediante la ejecución del documento en RStudio/Quarto; el grupo debe revisar las salidas y confirmar que las explicaciones corresponden a los resultados obtenidos antes de entregar la práctica.
 
 ## 8. Referencias
 
 - IBM. (2019, 11 de julio). *Telco customer churn (11.1.3+).* IBM Community. https://community.ibm.com/community/user/blogs/steven-macko/2019/07/11/telco-customer-churn-1113
 - IBM. (s. f.). *Telco customer churn*. IBM Cognos Analytics documentation. https://www.ibm.com/docs/en/cognos-analytics/12.1.x?topic=samples-telco-customer-churn
 
-**Nota sobre la descarga:** si el CSV se obtuvo desde Kaggle u otro repositorio, añadid también la referencia y URL exactas de esa descarga. La referencia de IBM documenta el conjunto de datos y el significado de la etiqueta de abandono.
+
